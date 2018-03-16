@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="activity_bg">#EEEEEE</color> <!-- 页面背景 -->
+    <color name="view_line">#E5E5E5</color> <!-- 线的颜色 -->
+
+    <color name="red">#fc4a45</color>
+    <color name="red_">#9d0e09</color>
+    <color name="gray_yzm">#929292</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="c5c5c5">#c5c5c5</color>
+    <color name="bule_deep">#2e80e4</color>
+    <color name="bule">#2f7fe4</color>
+
+
+</resources>

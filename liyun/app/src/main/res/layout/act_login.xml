@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin16"
+            android:src="@mipmap/ic_logo" />
+
+
+        <LinearLayout
+            android:id="@+id/bangding_alipay"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin25"
+            android:layout_marginRight="@dimen/margin25"
+            android:background="@drawable/llyt_bg"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/margin16"
+                android:src="@mipmap/ic_phone" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:background="@color/view_line" />
+
+            <EditText
+                android:id="@id/txt_account"
+                android:layout_width="fill_parent"
+                android:layout_height="49dip"
+                android:background="@null"
+                android:hint="@string/action_input_phonenum"
+                android:inputType="text"
+                android:maxLength="11"
+                android:paddingLeft="@dimen/margin16"
+                android:singleLine="true"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin25"
+            android:layout_marginRight="@dimen/margin25"
+            android:layout_marginTop="@dimen/margin20"
+            android:background="@drawable/llyt_bg"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/margin16"
+                android:src="@mipmap/ic_pwd" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:background="@color/view_line" />
+
+            <EditText
+                android:id="@id/txt_pwd"
+                android:layout_width="fill_parent"
+                android:layout_height="49dip"
+                android:background="@null"
+                android:hint="@string/action_input_pwd"
+                android:inputType="text"
+                android:maxLength="11"
+                android:paddingLeft="@dimen/margin16"
+                android:singleLine="true"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin25"
+            android:layout_marginRight="@dimen/margin25"
+            android:layout_marginTop="@dimen/margin5">
+
+            <TextView
+                android:id="@id/txt_forget_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/margin8"
+                android:text="@string/action_forget_password" />
+
+            <TextView
+                android:id="@id/txt_regist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/margin8"
+                android:text="@string/action_regist" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@id/txt_login"
+            style="@style/textview"
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin15"
+            android:clickable="true"
+            android:enabled="false"
+            android:text="@string/action_sign_in"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin80"
+            android:gravity="center"
+            android:text="第三方登录平台"
+            android:textSize="@dimen/font_normal_14" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin20">
+
+            <ImageView
+                android:id="@+id/iv_wx"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_wx" />
+
+            <ImageView
+                android:id="@+id/iv_qq"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@mipmap/ic_qq" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</android.support.v4.widget.NestedScrollView>
