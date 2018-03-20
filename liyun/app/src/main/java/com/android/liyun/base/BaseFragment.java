@@ -1,146 +1,103 @@
 package com.android.liyun.base;
 
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.android.liyun.R;
-import com.android.liyun.utils.LoadingPage;
-import com.android.liyun.utils.NetWorkUtils;
-import com.android.liyun.utils.UIUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import butterknife.ButterKnife;
 
-import butterknife.Unbinder;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import okhttp3.Call;
+/**
+ * des:基类fragment
+ * Created by xsf
+ * on 2016.07.12:38
+ */
+/***************使用例子*********************/
+//1.mvp模式
+//public class SampleFragment extends BaseFragment<NewsChanelPresenter, NewsChannelModel>implements NewsChannelContract.View {
+//    @Override
+//    public int getLayoutId() {
+//        return R.layout.activity_news_channel;
+//    }
+//
+//    @Override
+//    public void initPresenter() {
+//        mPresenter.setVM(this, mModel);
+//    }
+//
+//    @Override
+//    public void initView() {
+//    }
+//}
+//2.普通模式
+//public class SampleFragment extends BaseFragment {
+//    @Override
+//    public int getLayoutResource() {
+//        return R.layout.activity_news_channel;
+//    }
+//
+//    @Override
+//    public void initPresenter() {
+//    }
+//
+//    @Override
+//    public void initView() {
+//    }
+//}
+public abstract  class BaseFragment<T extends BasePresenter, E extends BaseModel> extends Fragment {
+    protected View rootView;
+    public T mPresenter;
+    public E mModel;
 
-public abstract class BaseFragment extends Fragment {
 
-    protected Map<String, String> parameterMap;
-    protected Call call;
-    protected LayoutInflater inflater;
-    protected Unbinder unbinder;
-    private ProgressDialog dialog;
-    private LoadingPage mLoadingPage;
-    private CompositeDisposable compositeDisposable;
-    //是否可见
-//    protected boolean isVisble;
-//    // 标志位，标志Fragment已经初始化完成。
-//    public boolean isPrepared = false;
-
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        parameterMap = new HashMap<>();
-        this.inflater = inflater;
-        mLoadingPage = new LoadingPage(UIUtils.getContext()) {
-
-            @Override
-            public int getLayoutId() {
-                return getEmpLayoutId();
-            }
-
-            @Override
-            public View onCreateSuccessView() {
-                return BaseFragment.this.onCreateSuccessView();
-            }
-
-            @Override
-            public void onLoad() {
-                BaseFragment.this.onLoad();
-            }
-
-        };
-        return mLoadingPage;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (rootView == null)
+            rootView = inflater.inflate(getLayoutResource(), container, false);
+        ButterKnife.bind(this, rootView);
+        initPresenter();
+        initView();
+        return rootView;
     }
+    //获取布局文件
+    protected abstract int getLayoutResource();
+    //简单页面无需mvp就不用管此方法即可,完美兼容各种实际场景的变通
+    public abstract void initPresenter();
+    //初始化view
+    protected abstract void initView();
 
-    protected int getEmpLayoutId() {
-        return R.layout.layout_empty;
-    }
-
-
-    // 由子类实现创建布局的方法
-    public abstract View onCreateSuccessView();
-
-    // 由子类实现加载网络数据的逻辑, 该方法运行在子线程
-    public abstract void onLoad();
-
-    // 开始加载网络数据
-    public void loadData() {
-
-        if (!NetWorkUtils.isNetConnected(UIUtils.getContext()) && !NetWorkUtils.isNetworkOnline()) {
-            mLoadingPage.mCurrentState = LoadingPage.ResultState.STATE_ERROR.getState();
-            mLoadingPage.showRightPage();
-            return;
-        }
-        if (mLoadingPage != null) {
-            mLoadingPage.loadData();
-        }
-    }
-
-    /**
-     * 校验数据的合法性,返回相应的状态
-     *
-     * @param data
-     * @return
-     */
-    public LoadingPage.ResultState check(Object data) {
-        if (data != null) {
-            if (data instanceof List) {//判断当前对象是否是一个集合
-                List list = (List) data;
-                if (!list.isEmpty()) {//数据不为空,访问成功
-                    return LoadingPage.ResultState.STATE_SUCCESS;
-                } else {//空集合
-                    return LoadingPage.ResultState.STATE_EMPTY;
-                }
-            }
-        }
-        return LoadingPage.ResultState.STATE_ERROR;
-    }
-
-
-    public void addDisposable(Disposable disposable) {
-        if (compositeDisposable == null) {
-            compositeDisposable = new CompositeDisposable();
-        }
-        compositeDisposable.add(disposable);
-    }
-
-    public void dispose() {
-        if (compositeDisposable != null) compositeDisposable.dispose();
-    }
-
-    public void showLoading() {
-//        if (dialog != null && dialog.isShowing()) return;
-//        dialog = new ProgressDialog(getActivity());
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setCanceledOnTouchOutside(false);
-//        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        dialog.setMessage("请求网络中...");
-//        dialog.show();
-    }
-
-    public void dismissLoading() {
-//        if (dialog != null && dialog.isShowing()) {
-//            dialog.dismiss();
-//        }
-    }
 
     /**
      * 通过Class跳转界面
      **/
     public void startActivity(Class<?> cls) {
         startActivity(cls, null);
+    }
+
+    /**
+     * 通过Class跳转界面
+     **/
+    public void startActivityForResult(Class<?> cls, int requestCode) {
+        startActivityForResult(cls, null, requestCode);
+    }
+
+    /**
+     * 含有Bundle通过Class跳转界面
+     **/
+    public void startActivityForResult(Class<?> cls, Bundle bundle,
+                                       int requestCode) {
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), cls);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivityForResult(intent, requestCode);
     }
 
     /**
@@ -156,8 +113,11 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        dispose();
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mPresenter != null)
+            mPresenter.onDestroy();
     }
+
+
 }

@@ -117,5 +117,100 @@ public class Api {
         mHttpTag.put("resetPwd", 0);
     }
 
+    /**
+     * 商品列表
+     *
+     * @param what
+     * @param module
+     * @param action
+     */
+    public void goodList(int what, String module, String action) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", module);
+        paramsTreeMap.put("action", action);
+        mHttpRequest.postDataString(url, what, "resetPwd", paramsTreeMap, false);
+        mHttpTag.put("goodList", 0);
+    }
 
+    /**
+     * 添加商品
+     *
+     * @param what
+     * @param module
+     * @param action
+     * @param goods_id
+     * @param uid
+     * @param quantity
+     * @param option
+     */
+    public void addGoods(int what, String module, String action, String goods_id, String uid, String quantity, String option) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", module);
+        paramsTreeMap.put("action", action);
+        paramsTreeMap.put("goods_id", goods_id);
+        paramsTreeMap.put("uid", uid);
+        paramsTreeMap.put("quantity", quantity);
+        paramsTreeMap.put("option", option);
+        mHttpRequest.postDataString(url, what, "resetPwd", paramsTreeMap, false);
+        mHttpTag.put("addGoods", 0);
+    }
+
+    /**
+     * 清空购物车
+     *
+     * @param what
+     * @param module
+     * @param action
+     * @param uid
+     */
+    public void emptyGoods(int what, String module, String action, String uid) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", module);
+        paramsTreeMap.put("action", action);
+        paramsTreeMap.put("uid", uid);
+        mHttpRequest.postDataString(url, what, "resetPwd", paramsTreeMap, false);
+        mHttpTag.put("emptyGoods", 0);
+    }
+
+    /**
+     * 从购物车移除某个产品
+     *
+     * @param what
+     * @param module
+     * @param action
+     * @param goods_id
+     * @param uid
+     */
+
+    public void removeGoods(int what, String module, String action, String goods_id, String uid) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", module);
+        paramsTreeMap.put("action", action);
+        paramsTreeMap.put("uid", uid);
+        paramsTreeMap.put("goods_id", goods_id);
+        mHttpRequest.postDataString(url, what, "resetPwd", paramsTreeMap, false);
+        mHttpTag.put("removeGoods", 0);
+    }
+
+    /**
+     * 购物车列表
+     *
+     * @param what
+     * @param module
+     * @param action
+     * @param uid
+     */
+    public void shoppCartList(int what, String module, String action, String uid) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", module);
+        paramsTreeMap.put("action", action);
+        paramsTreeMap.put("uid", uid);
+        mHttpRequest.postDataString(url, what, "resetPwd", paramsTreeMap, false);
+        mHttpTag.put("shoppCartList", 0);
+    }
 }

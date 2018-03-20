@@ -34,7 +34,9 @@
             </RelativeLayout>
 
 
-            <RelativeLayout style="@style/comm_style">
+            <RelativeLayout
+                style="@style/comm_style"
+                android:clickable="true">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -139,7 +141,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin5" />
 
-            <RelativeLayout style="@style/comm_style">
+            <RelativeLayout
+                style="@style/comm_style"
+                android:clickable="true">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -156,7 +160,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin5" />
 
-            <RelativeLayout style="@style/comm_style">
+            <RelativeLayout
+                style="@style/comm_style"
+                android:clickable="true">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -173,7 +179,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp" />
 
-            <RelativeLayout style="@style/comm_style">
+            <RelativeLayout
+                style="@style/comm_style"
+                android:clickable="true">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -190,7 +198,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp" />
 
-            <RelativeLayout style="@style/comm_style">
+            <RelativeLayout
+                style="@style/comm_style"
+                android:clickable="true">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -207,7 +217,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin5" />
 
-            <RelativeLayout style="@style/comm_style">
+            <RelativeLayout
+                style="@style/comm_style"
+                android:clickable="true">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -224,7 +236,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp" />
 
-            <RelativeLayout style="@style/comm_style">
+            <RelativeLayout
+                style="@style/comm_style"
+                android:clickable="true">
 
                 <TextView
                     android:layout_width="match_parent"
