@@ -28,6 +28,7 @@
         <activity android:name=".ui.login.LoginAct" />
         <activity android:name=".ui.login.RegistAct" />
         <activity android:name=".ui.login.ForgetAct" />
+        <activity android:name=".ui.dev.activity.H5Act"></activity>
     </application>
 
 </manifest>

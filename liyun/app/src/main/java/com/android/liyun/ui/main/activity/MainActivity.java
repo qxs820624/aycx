@@ -15,12 +15,14 @@ import android.widget.RelativeLayout;
 import com.android.liyun.R;
 import com.android.liyun.base.BaseActivity;
 import com.android.liyun.ui.login.LoginAct;
+import com.android.liyun.ui.main.fragment.ForumFrag;
+import com.android.liyun.ui.main.fragment.GameFrag;
 import com.android.liyun.ui.main.fragment.HomeFrag;
 import com.android.liyun.ui.main.fragment.MyFrag;
-import com.android.liyun.ui.main.fragment.test;
-import com.android.liyun.ui.main.fragment.testa;
+import com.android.liyun.ui.main.fragment.MallFrag;
 import com.android.liyun.utils.BottomNavigationViewHelper;
 import com.android.liyun.utils.StatusBarUtil;
+import com.android.liyun.widget.NoSlidingViewPaper;
 
 import java.util.ArrayList;
 
@@ -36,13 +38,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @BindView(R.id.container)
     RelativeLayout relativeLayout;
     public BottomNavigationView navigation;
-    protected HomeFrag mHomeFragment;
-    protected MyFrag mMineFragment;
-    private int currentIndex = 0;
-    private MenuItem menuItem;
     private ArrayList<Fragment> fgLists;
-    private MenuItem lastItem;
-    private ViewPager mViewPager;
+    private NoSlidingViewPaper mViewPager;
 
     @Override
     public int getLayoutId() {
@@ -57,12 +54,12 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     public void initView() {
         /*初始化显示内容*/
-        mViewPager = (ViewPager) findViewById(R.id.vp_main_container);
+        mViewPager = (NoSlidingViewPaper) findViewById(R.id.vp_main_container);
         fgLists = new ArrayList<>(5);
         fgLists.add(new HomeFrag());
-        fgLists.add(new test());
-        fgLists.add(new testa());
-        fgLists.add(new testa());
+        fgLists.add(new GameFrag());
+        fgLists.add(new MallFrag());
+        fgLists.add(new ForumFrag());
         fgLists.add(new MyFrag());
         FragmentPagerAdapter mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -97,10 +94,10 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     mViewPager.setCurrentItem(0, false);
                     return true;
                 case R.id.navigation_managemoney:
+                    startActivity(LoginAct.class);
                     mViewPager.setCurrentItem(1, false);
                     return true;
                 case R.id.navigation_dashboard:
-                    startActivity(LoginAct.class);
                     mViewPager.setCurrentItem(2, false);
                     return true;
                 case R.id.navigation_notifications:
@@ -146,22 +143,22 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void onPageSelected(int position) {
-        switch (position) {
-            case 0:
-                navigation.setSelectedItemId(R.id.navigation_home);
-                break;
-            case 1:
-                navigation.setSelectedItemId(R.id.navigation_managemoney);
-                break;
-            case 2:
-                navigation.setSelectedItemId(R.id.navigation_dashboard);
-                break;
-            case 3:
-                navigation.setSelectedItemId(R.id.navigation_notifications);
-            case 4:
-                navigation.setSelectedItemId(R.id.navigation_my);
-                break;
-        }
+//        switch (position) {
+//            case 0:
+//                navigation.setSelectedItemId(R.id.navigation_home);
+//                break;
+//            case 1:
+//                navigation.setSelectedItemId(R.id.navigation_managemoney);
+//                break;
+//            case 2:
+//                navigation.setSelectedItemId(R.id.navigation_dashboard);
+//                break;
+//            case 3:
+//                navigation.setSelectedItemId(R.id.navigation_notifications);
+//            case 4:
+//                navigation.setSelectedItemId(R.id.navigation_my);
+//                break;
+//        }
     }
 
     @Override

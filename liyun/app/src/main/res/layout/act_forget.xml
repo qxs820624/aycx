@@ -1,199 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include layout="@layout/toolbar" />
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin16"
-            android:src="@mipmap/ic_logo" />
-
-
-        <LinearLayout
-            android:id="@+id/bangding_alipay"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/margin25"
-            android:layout_marginRight="@dimen/margin25"
-            android:background="@drawable/llyt_bg"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/margin16"
-                android:src="@mipmap/ic_phone" />
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin16"
+                android:src="@mipmap/ic_logo" />
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:background="@color/view_line" />
 
-            <EditText
-                android:id="@id/txt_account"
-                android:layout_width="fill_parent"
-                android:layout_height="49dip"
-                android:background="@null"
-                android:hint="@string/action_input_phonenum"
-                android:inputType="number"
-                android:maxLength="11"
-                android:paddingLeft="@dimen/margin16"
-                android:singleLine="true"
-                android:textSize="14sp" />
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/bangding_alipay"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin25"
+                android:layout_marginRight="@dimen/margin25"
+                android:background="@drawable/llyt_bg"
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/margin25"
-            android:layout_marginRight="@dimen/margin25"
-            android:layout_marginTop="@dimen/margin20"
-            android:background="@drawable/llyt_bg"
-            android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin16"
+                    android:src="@mipmap/ic_phone" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/margin16"
-                android:src="@mipmap/ic_phone" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:background="@color/view_line" />
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:background="@color/view_line" />
+                <EditText
+                    android:id="@id/txt_account"
+                    android:layout_width="fill_parent"
+                    android:layout_height="49dip"
+                    android:background="@null"
+                    android:hint="@string/action_input_phonenum"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:paddingLeft="@dimen/margin16"
+                    android:singleLine="true"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
-            <EditText
-                android:id="@id/txt_code"
-                android:layout_width="0dp"
-                android:layout_height="49dip"
-                android:layout_weight="1"
-                android:background="@null"
-                android:hint="@string/action_input_code"
-                android:inputType="text"
-                android:maxLength="11"
-                android:paddingLeft="@dimen/margin16"
-                android:singleLine="true"
-                android:textSize="14sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin25"
+                android:layout_marginRight="@dimen/margin25"
+                android:layout_marginTop="@dimen/margin20"
+                android:background="@drawable/llyt_bg"
+                android:orientation="horizontal">
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="@dimen/margin16"
-                android:background="@color/view_line" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin16"
+                    android:src="@mipmap/ic_phone" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:background="@color/view_line" />
+
+                <EditText
+                    android:id="@id/txt_code"
+                    android:layout_width="0dp"
+                    android:layout_height="49dip"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/action_input_code"
+                    android:inputType="text"
+                    android:maxLength="11"
+                    android:paddingLeft="@dimen/margin16"
+                    android:singleLine="true"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/margin16"
+                    android:background="@color/view_line" />
+
+                <TextView
+                    android:id="@id/txt_sentCode"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="发送验证码"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/font_normal_14" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin25"
+                android:layout_marginRight="@dimen/margin25"
+                android:layout_marginTop="@dimen/margin20"
+                android:background="@drawable/llyt_bg"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin16"
+                    android:src="@mipmap/ic_pwd" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:background="@color/view_line" />
+
+                <EditText
+                    android:id="@id/txt_pwd"
+                    android:layout_width="fill_parent"
+                    android:layout_height="49dip"
+                    android:background="@null"
+                    android:hint="@string/action_input_pwd"
+                    android:inputType="text"
+                    android:maxLength="11"
+                    android:paddingLeft="@dimen/margin16"
+                    android:singleLine="true"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin25"
+                android:layout_marginRight="@dimen/margin25"
+                android:layout_marginTop="@dimen/margin20"
+                android:background="@drawable/llyt_bg"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin16"
+                    android:src="@mipmap/ic_pwd" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:background="@color/view_line" />
+
+                <EditText
+                    android:id="@id/txt_re_pwd"
+                    android:layout_width="fill_parent"
+                    android:layout_height="49dip"
+                    android:background="@null"
+                    android:hint="@string/action_input_pwd_agin"
+                    android:inputType="text"
+                    android:maxLength="11"
+                    android:paddingLeft="@dimen/margin16"
+                    android:singleLine="true"
+                    android:textSize="14sp" />
+            </LinearLayout>
 
             <TextView
-                android:id="@id/txt_sentCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:text="发送验证码"
-                android:textSize="@dimen/font_normal_14" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/margin25"
-            android:layout_marginRight="@dimen/margin25"
-            android:layout_marginTop="@dimen/margin20"
-            android:background="@drawable/llyt_bg"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/margin16"
-                android:src="@mipmap/ic_pwd" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:background="@color/view_line" />
-
-            <EditText
-                android:id="@id/txt_pwd"
-                android:layout_width="fill_parent"
-                android:layout_height="49dip"
-                android:background="@null"
-                android:hint="@string/action_input_pwd"
-                android:inputType="text"
-                android:maxLength="11"
-                android:paddingLeft="@dimen/margin16"
-                android:singleLine="true"
+                android:id="@id/txt_change_pwd"
+                style="@style/textview"
+                android:layout_width="280dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="14dip"
+                android:clickable="true"
+                android:enabled="false"
+                android:text="@string/change_pwd"
                 android:textSize="14sp" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/margin25"
-            android:layout_marginRight="@dimen/margin25"
-            android:layout_marginTop="@dimen/margin20"
-            android:background="@drawable/llyt_bg"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/margin16"
-                android:src="@mipmap/ic_pwd" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:background="@color/view_line" />
-
-            <EditText
-                android:id="@id/txt_re_pwd"
-                android:layout_width="fill_parent"
-                android:layout_height="49dip"
-                android:background="@null"
-                android:hint="@string/action_input_pwd_agin"
-                android:inputType="text"
-                android:maxLength="11"
-                android:paddingLeft="@dimen/margin16"
-                android:singleLine="true"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@id/txt_change_pwd"
-            style="@style/textview"
-            android:layout_width="280dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="14dip"
-            android:clickable="true"
-            android:text="@string/change_pwd"
-            android:textSize="14sp" />
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

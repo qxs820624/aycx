@@ -9,4 +9,5 @@ public interface RequestWhatI {
     int LOGIN = 1;
     int SENDCODE = 2;
     int REGIST = 3;
+    int RESETPWD = 3;
 }

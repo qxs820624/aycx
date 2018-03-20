@@ -58,8 +58,10 @@ public class LoginAct extends BaseActivity implements TextWatcher {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.txt_forget_password:
+                startActivity(ForgetAct.class);
                 break;
             case R.id.txt_regist:
+                startActivity(RegistAct.class);
                 break;
             case R.id.txt_login:
                 String phone = txtAccount.getText().toString();
