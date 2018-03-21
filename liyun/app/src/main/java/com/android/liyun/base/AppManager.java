@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.Stack;
 
 /**
- * activity管理
+ * activity 管理
  */
 public class AppManager {
     private static Stack<Activity> activityStack;

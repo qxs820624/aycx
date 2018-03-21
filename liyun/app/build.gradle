@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 android {
     compileSdkVersion 26
 
@@ -52,4 +51,5 @@ dependencies {
      */
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     compile 'com.clj.fastble:FastBleLib:2.2.4'//蓝牙
+    compile project(path: ':blelibrary')
 }
