@@ -10,7 +10,11 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <!-- Android 6.0 BLE Scan -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <application
         android:name=".base.LiyunApp"
         android:allowBackup="true"
@@ -29,6 +33,8 @@
         <activity android:name=".ui.login.RegistAct" />
         <activity android:name=".ui.login.ForgetAct" />
         <activity android:name=".ui.dev.activity.H5Act"></activity>
+        <activity android:name=".ui.main.activity.ScanActivity" />
+        <service android:name=".service.BleService" />
     </application>
 
 </manifest>

@@ -11,15 +11,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-
 import com.android.liyun.R;
 import com.android.liyun.base.BaseActivity;
-import com.android.liyun.ui.login.LoginAct;
+import com.android.liyun.base.LiyunApp;
+import com.android.liyun.service.BleService;
 import com.android.liyun.ui.main.fragment.ForumFrag;
 import com.android.liyun.ui.main.fragment.GameFrag;
 import com.android.liyun.ui.main.fragment.HomeFrag;
-import com.android.liyun.ui.main.fragment.MyFrag;
 import com.android.liyun.ui.main.fragment.MallFrag;
+import com.android.liyun.ui.main.fragment.MyFrag;
 import com.android.liyun.utils.BottomNavigationViewHelper;
 import com.android.liyun.utils.StatusBarUtil;
 import com.android.liyun.widget.NoSlidingViewPaper;
@@ -40,6 +40,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     public BottomNavigationView navigation;
     private ArrayList<Fragment> fgLists;
     private NoSlidingViewPaper mViewPager;
+    private LiyunApp mLiYunApp;
+    private BleService mSennoSmartBleService;
 
     @Override
     public int getLayoutId() {
@@ -94,7 +96,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     mViewPager.setCurrentItem(0, false);
                     return true;
                 case R.id.navigation_managemoney:
-                    startActivity(LoginAct.class);
+                    // startActivity(LoginAct.class);
                     mViewPager.setCurrentItem(1, false);
                     return true;
                 case R.id.navigation_dashboard:
@@ -114,6 +116,18 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     protected void onResume() {
         super.onResume();
+        mLiYunApp = LiyunApp.instance();
+        mSennoSmartBleService = mLiYunApp.getSennoSmartBleService();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mSennoSmartBleService != null) {
+            mSennoSmartBleService.disconnect();
+            mSennoSmartBleService.close();
+        }
+        super.onDestroy();
+
     }
 
     @Override
@@ -165,4 +179,5 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     public void onPageScrollStateChanged(int state) {
 
     }
+
 }
