@@ -7,7 +7,7 @@ package com.liyun.blelibrary.listener;
 */
 public interface SmartSystemDataCallback {
 
-    void getConnectionParamData(byte[] data);
+    void getConnectionParamData(byte action);
 
     void onReceiveFirmwareUpgradeState(byte state, int counter);
 

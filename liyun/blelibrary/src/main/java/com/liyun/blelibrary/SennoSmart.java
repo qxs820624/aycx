@@ -292,7 +292,7 @@ public class SennoSmart extends BluetoothLeDevice {
                     mSmartMotionDataCallback.getMotionStopData(data);
                 }
             } else if (UUID_CHARACTERISTIC_FFF6.equals(uuid)) {
-                convertConnectionParam(data);
+                convertActionParam(data);
             } else if (UUID_CHARACTERISTIC_FIRMWARE_UPGRADE_STATUS.equals(uuid)) {
                 convertFirmwareUpdateState(data);
             } else if (UUID_CHARACTERISTIC_PEDOMETER_STATUS.equals(uuid)) {
@@ -340,10 +340,10 @@ public class SennoSmart extends BluetoothLeDevice {
                 //读取成功
                 if (UUID_CHARACTERISTIC_CONNECTION_PARAM.equals(uuid)) {
                     Log.d(TAG, "UUID_CHARACTERISTIC_CONNECTION_PARAM data = [" + Arrays.toString(data) + "]");
-                    convertConnectionParam(data);
-                    if (mSmartSystemDataCallback != null) {
-                        mSmartSystemDataCallback.getConnectionParamData(data);
-                    }
+                    //convertConnectionParam(data);
+//                    if (mSmartSystemDataCallback != null) {
+//                        mSmartSystemDataCallback.getConnectionParamData(data);
+//                    }
                 } else if (UUID_CHARACTERISTIC_PEDOMETER_RECORD_STATUS.equals(uuid)) {
                     Log.d(TAG, "UUID_CHARACTERISTIC_PEDOMETER_RECORD_STATUS data = [" + Arrays.toString(data) + "]");
                     convertPedometerRecordStatusData(data);
@@ -495,7 +495,12 @@ public class SennoSmart extends BluetoothLeDevice {
      * Parse connection param
      */
     private void convertConnectionParam(byte[] data) {
+
+
+    }
+    private void convertActionParam(byte[] data) {
         ByteBuffer buffer = ByteBuffer.wrap(data);
+       // Log.e(TAG, Arrays.toString(data));
         buffer.order(ByteOrder.LITTLE_ENDIAN);
         short date = buffer.getShort();
         int time = buffer.getInt();
@@ -509,8 +514,8 @@ public class SennoSmart extends BluetoothLeDevice {
         byte crc =  buffer.get();
         Log.d(TAG, "date=" + date + ",time=" + time + ",acc_x=" + acc_x + ",accy=" + acc_y + ",accz=" + acc_z + ",angx=" + ang_x + ",angy=" + ang_y + "," +
                 "angz=" + ang_z + ",action=" + action + ",crc=" + crc);
-        if (mSmartSystemDataCallback != null) {
-            mSmartSystemDataCallback.getConnectionParamData(data);
+        if (mSmartPedometerDataCallback != null) {
+            mSmartPedometerDataCallback.getActionRecordData(data,action);
         }
     }
 

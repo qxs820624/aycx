@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.android.liyun.Constant;
 import com.android.liyun.base.ConnectStatusManager;
+import com.android.liyun.bean.ConnectionTimeBean;
 import com.android.liyun.listener.BleScanCallback;
 import com.android.liyun.utils.TimeStampUtil;
 import com.liyun.blelibrary.BluetoothLeDevice;
@@ -26,6 +27,11 @@ import com.liyun.blelibrary.listener.SmartPedometerDataCallback;
 import com.liyun.blelibrary.listener.SmartSystemDataCallback;
 
 import java.lang.ref.WeakReference;
+import java.text.DecimalFormat;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
+import io.realm.Sort;
 
 /**
  * @author hzx
@@ -56,7 +62,7 @@ public class BleService extends Service {
 
     private boolean mScanning = false;
     private BleServiceReceiver receiver;
-
+    private Realm mRealm;
     @Override
     public IBinder onBind(Intent intent) {
         Log.d(TAG, "onBind() called with: " + "intent = [" + intent + "]");
@@ -80,6 +86,7 @@ public class BleService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        mRealm = Realm.getDefaultInstance();
         registerBroadrecevicer();
         BluetoothManager manager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         mBluetoothAdapter = manager.getAdapter();
@@ -108,6 +115,7 @@ public class BleService extends Service {
             unregisterReceiver(receiver);
             receiver = null;
         }
+        mRealm.close();
         super.onDestroy();
     }
 
@@ -136,10 +144,11 @@ public class BleService extends Service {
             if (bluetoothDevice == null) {
                 return;
             }
-            Log.e(TAG, bluetoothDevice.getAddress() + "name=" + bluetoothDevice.getName());
             //发现设备接口回调，只为绑定设备而用
             if (mBleScanCallback != null) {
+                if(rssi>-55){
                 mBleScanCallback.discoverDevice(bluetoothDevice, rssi);
+                }
             }
             //找到测试目标设备
             if (mBleScanCallback != null) {
@@ -455,9 +464,34 @@ public class BleService extends Service {
         //service是贯穿整个app的，当收到断开连接的广播，及时更新当前设备的连接状态
         ConnectStatusManager.changeConnectionStatus(false);
         String disconnectTime = TimeStampUtil.unixTimeStamp2Datems(String.valueOf(System.currentTimeMillis()), "yyyy-MM-dd HH:mm:ss");
-        double s = TimeStampUtil.calculateEnergyNum(Constant.START_CONNECT_TIME, disconnectTime);
-            String energyNum = String.format("%.2f", s).toString();
-        Log.e("time", "disconnecttime=" + disconnectTime + ",energyNum=" + energyNum + "--s=" + s);
+        double energyNum = TimeStampUtil.calculateEnergyNum(Constant.START_CONNECT_TIME, disconnectTime);
+        DecimalFormat df = new DecimalFormat("#0.00");
+        String energyNumFormat = df.format(energyNum);
+        //saveData(false,Double.parseDouble(energyNumFormat),disconnectTime);
+        Log.e("time", "disconnecttime=" + disconnectTime + ",energyNum=" + energyNum + "--energyNumFormat=" + Double.parseDouble(energyNumFormat));
+    }
+    private void saveData(final boolean isUpload, final double num, final String disconnectTime) {
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                ConnectionTimeBean connectionTimeBean = realm.createObject(ConnectionTimeBean.class);
+               // connectionTimeBean.setId(generateNewPrimaryKey());
+                connectionTimeBean.setUpload(isUpload);
+                connectionTimeBean.setCreateTime(disconnectTime);
+                connectionTimeBean.setenergyNum(num);
+            }
+        });
+    }
+    //获取最大的PrimaryKey并加一
+    private long generateNewPrimaryKey() {
+        long primaryKey = 0;
+        //必须排序, 否则last可能不是PrimaryKey最大的数据. findAll()查询出来的数据是乱序的
+        RealmResults<ConnectionTimeBean> results = mRealm.where(ConnectionTimeBean.class).findAllSorted("id", Sort.ASCENDING);
+        if (results != null && results.size() > 0) {
+            ConnectionTimeBean last = results.last(); //根据id顺序排序后, last()取得的对象就是PrimaryKey的值最大的数据
+            primaryKey = last.getId() + 1;
+        }
+        return primaryKey;
     }
 }
 

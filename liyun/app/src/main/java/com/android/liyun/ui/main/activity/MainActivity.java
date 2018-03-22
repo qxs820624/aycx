@@ -27,6 +27,7 @@ import com.android.liyun.widget.NoSlidingViewPaper;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import io.realm.Realm;
 
 
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
@@ -42,7 +43,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private NoSlidingViewPaper mViewPager;
     private LiyunApp mLiYunApp;
     private BleService mSennoSmartBleService;
-
+    private Realm mRealm;
     @Override
     public int getLayoutId() {
         return R.layout.act_main;
@@ -55,6 +56,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void initView() {
+        mRealm = Realm.getDefaultInstance();
         /*初始化显示内容*/
         mViewPager = (NoSlidingViewPaper) findViewById(R.id.vp_main_container);
         fgLists = new ArrayList<>(5);
@@ -126,6 +128,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             mSennoSmartBleService.disconnect();
             mSennoSmartBleService.close();
         }
+        //关闭数据库
+        mRealm.close();
         super.onDestroy();
 
     }

@@ -34,6 +34,7 @@
         <activity android:name=".ui.login.ForgetAct" />
         <activity android:name=".ui.dev.activity.H5Act"></activity>
         <activity android:name=".ui.main.activity.ScanActivity" />
+        <activity android:name=".ui.main.activity.ShowDataActivity" />
         <service android:name=".service.BleService" />
     </application>
 

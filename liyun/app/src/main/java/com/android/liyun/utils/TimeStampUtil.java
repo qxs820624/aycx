@@ -45,7 +45,7 @@ public class TimeStampUtil {
             allMinutes = days * 24 * 60 + hours * 60 + minutes;
         } catch (Exception e) {
         }
-        return allMinutes*1.0 / 30;
+        return allMinutes*1.0 / 60;
     }
 }
 
