@@ -184,7 +184,8 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mDeviceAdapter.updateListView(devices);
+                    mDeviceAdapter.notifyDataSetChanged();
+                   // mDeviceAdapter.updateListView(devices);
                 }
             });
 
@@ -300,14 +301,13 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
         }
         Toast.makeText(this, "设备连接成功", Toast.LENGTH_LONG).show();
 
-        // mSennoSmartBleService.stopScanning();
+        mSennoSmartBleService.stopScanning();
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 isConnecting = false;   //改变状态为非连接状态
-                finish();
-                //startActivity(new Intent(ScanActivity.this, ShowDataActivity.class));
+                startActivity(new Intent(ScanActivity.this, ShowDataActivity.class));
 //                mSennoSmartBleService.synchronizeTimeStamp();
 //              //  mSennoSmartBleService.setSennoSmartPedometerDataCallback(mSennoSmartPedometerDataCallback);
 //                mSennoSmartBleService.notifyPedometerStatus(true);

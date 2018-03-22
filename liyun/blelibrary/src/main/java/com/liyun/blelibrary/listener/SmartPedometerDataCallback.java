@@ -10,5 +10,6 @@ public interface SmartPedometerDataCallback {
 
     void getPedometerRecordStatusData(int startId, int endId);
 
+    void getActionRecordData(byte[] data,byte action);
     //void getPedometerRecordData(PedometerRecordData pedometerRecordData);
 }

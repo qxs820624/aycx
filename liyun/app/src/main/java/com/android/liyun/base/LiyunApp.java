@@ -30,6 +30,8 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import okhttp3.OkHttpClient;
 
 public class LiyunApp extends Application {
@@ -50,6 +52,7 @@ public class LiyunApp extends Application {
         }
         return baseApplication;
     }
+
     private static LiyunApp instance;
     private BleService mSmartBleService;
 
@@ -76,9 +79,11 @@ public class LiyunApp extends Application {
     public static int getMainTid() {
         return mainTid;
     }
+
     public static Handler getHandler() {
         return handler;
     }
+
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -91,6 +96,7 @@ public class LiyunApp extends Application {
             Log.d(TAG, "onServiceDisconnected, name: " + name);
         }
     };
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -108,21 +114,31 @@ public class LiyunApp extends Application {
         mMainHandler = new Handler();
         mainTid = android.os.Process.myTid();
         handler = new Handler();
-        bindService(new Intent(mContext,BleService.class), mServiceConnection, BIND_AUTO_CREATE);
+        bindService(new Intent(mContext, BleService.class), mServiceConnection, BIND_AUTO_CREATE);
     }
+
     public static LiyunApp instance() {
         return instance;
     }
+
     public BleService getSennoSmartBleService() {
         return mSmartBleService;
     }
+
     private void initRealm() {
-     /*   // TODO: 2016/8/3 数据库的版本管理
-        RealmConfiguration realmConfiguration = new RealmConfiguration
-                .Builder(this)
-                .deleteRealmIfMigrationNeeded() //TODO 删除旧的数据，不处理数据迁移问题,仅供测试使用
-                .build();
-        Realm.setDefaultConfiguration(realmConfiguration);*/
+        // TODO: 2018/3/21 数据库的版本管理
+        Realm.init(this);
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                //.name("realmdb.realm") //文件名
+                //.schemaVersion(0) //版本号
+                //.migration(migration)//数据库版本迁移（数据库升级，当数据库中某个表添加字段或者删除字段）
+                .deleteRealmIfMigrationNeeded()//TODO 删除旧的数据，不处理数据迁移问题,仅供测试使用
+                // 声明版本冲突时自动删除原数据库(当调用了该方法时，上面的方法将失效)。
+                .build();//创建
+        Realm.setDefaultConfiguration(config);
+        //使用数据默认配置
+        //Realm.init(this);
+        // Realm mRealm = Realm.getDefaultInstance();
     }
 
     private void initOkGo() {
