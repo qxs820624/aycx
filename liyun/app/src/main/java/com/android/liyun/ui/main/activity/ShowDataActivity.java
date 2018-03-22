@@ -18,10 +18,9 @@ import java.util.Arrays;
 import butterknife.BindView;
 
 /**
-*
-*@author hzx
-*created at 2018/3/20 12:15
-*/
+ * @author hzx
+ *         created at 2018/3/20 12:15
+ */
 public class ShowDataActivity extends BaseActivity implements SmartPedometerDataCallback {
     @BindView(R.id.tv_ModelNumber)
     TextView tvModelNumber;
@@ -67,6 +66,8 @@ public class ShowDataActivity extends BaseActivity implements SmartPedometerData
         mSennoSmartBleService.readModelNumber();
     }
 
+
+
     private void registerBroadrecevicer() {
         receiver = new IntenteBoradCastReceiver();
         IntentFilter filter = new IntentFilter();
@@ -101,7 +102,7 @@ public class ShowDataActivity extends BaseActivity implements SmartPedometerData
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                tv_fff6.setText(action+"");
+                tv_fff6.setText(action + "");
                 tv_fff6data.setText(Arrays.toString(data));
             }
         });
@@ -116,13 +117,13 @@ public class ShowDataActivity extends BaseActivity implements SmartPedometerData
             if (action.equals(BluetoothLeDevice.ACTION_DEVICE_VERSION)) {
                 String firmwareRevision = intent.getStringExtra(BluetoothLeDevice.EXTRA_DATA);
                 tvFirmwareRevision.setText(firmwareRevision);
-            }else if (action.equals(BluetoothLeDevice.ACTION_DEVICE_MODEL_NAME)) {
+            } else if (action.equals(BluetoothLeDevice.ACTION_DEVICE_MODEL_NAME)) {
                 String ModelName = intent.getStringExtra(BluetoothLeDevice.EXTRA_DATA);
                 tvModelNumber.setText(ModelName);
-            }else if (action.equals(BluetoothLeDevice.ACTION_DEVICE_SOFT_VERSION)) {
+            } else if (action.equals(BluetoothLeDevice.ACTION_DEVICE_SOFT_VERSION)) {
                 String softVersion = intent.getStringExtra(BluetoothLeDevice.EXTRA_DATA);
                 tvSoftwareRevision.setText(softVersion);
-            }else if (action.equals(BluetoothLeDevice.ACTION_DEVICE_HARD_VERSION)) {
+            } else if (action.equals(BluetoothLeDevice.ACTION_DEVICE_HARD_VERSION)) {
                 String hardVersion = intent.getStringExtra(BluetoothLeDevice.EXTRA_DATA);
                 tvHardwareRevision.setText(hardVersion);
             }
