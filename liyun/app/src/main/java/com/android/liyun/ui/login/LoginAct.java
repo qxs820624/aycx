@@ -13,7 +13,10 @@ import android.widget.Toast;
 import com.android.liyun.R;
 import com.android.liyun.base.BaseActivity;
 import com.android.liyun.bean.BaseBen;
+import com.android.liyun.bean.LoginBean;
 import com.android.liyun.http.Api;
+import com.android.liyun.http.ConstValues;
+import com.android.liyun.utils.SPUtil;
 import com.android.liyun.utils.UIUtils;
 
 import butterknife.BindView;
@@ -103,7 +106,18 @@ public class LoginAct extends BaseActivity implements TextWatcher {
             if (msg.arg1 != -1) {
                 switch (msg.what) {
                     case LOGIN:
-                        BaseBen baseBen = mGson.fromJson(msg.obj.toString(), BaseBen.class);
+                        LoginBean baseBen = mGson.fromJson(msg.obj.toString(), LoginBean.class);
+                        if (baseBen.getStatus().equals(ConstValues.ZERO)) {
+                            SPUtil.putString(UIUtils.getContext(), ConstValues.TOKEN, baseBen.getToken());
+                            SPUtil.putString(UIUtils.getContext(), ConstValues.UID, baseBen.getUid());
+
+                            UIUtils.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    LoginAct.this.finish();
+                                }
+                            }, 1500);
+                        }
                         Toast.makeText(UIUtils.getContext(), baseBen.getMsg(), Toast.LENGTH_SHORT).show();
                         break;
                 }

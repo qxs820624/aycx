@@ -7,4 +7,7 @@ package com.android.liyun.http;
 public interface ConstValues {
     String url = "http://219.153.49.223:8088/DBC/index.php";
     String ZERO = "0";
+    String TOKEN = "token";
+    String UID = "uid";
+    String ONE = "1";
 }

@@ -13,4 +13,13 @@
     <item name="txt_re_pwd" type="id" />
     <item name="txt_sentCode" type="id" />
     <item name="txt_change_pwd" type="id" />
+    <item name="txt_realname" type="id" />
+    <item name="txt_idcard" type="id" />
+    <item name="txt_phone" type="id" />
+    <item name="txt_email" type="id" />
+    <item name="txt_confirm_submit" type="id" />
+    <item name="recycleView" type="id" />
+    <item name="iv_image" type="id" />
+    <item name="txt_name" type="id" />
+    <item name="txt_pay_points" type="id" />
 </resources>

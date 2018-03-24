@@ -18,6 +18,7 @@ public class GameFrag extends BaseFragment {
     TextView tvConnect;
     private static final String APPID = "appid=519328ab";
     private MainActivity mMainActivity;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -25,7 +26,6 @@ public class GameFrag extends BaseFragment {
         // TODO 这里不应该强转成MainActivity
         this.mMainActivity = (MainActivity) activity;
     }
-
 
 
     @Override
@@ -48,6 +48,7 @@ public class GameFrag extends BaseFragment {
     public void onResume() {
         super.onResume();
     }
+
     @OnClick({R.id.btn_voice})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -56,11 +57,13 @@ public class GameFrag extends BaseFragment {
                 //设置语音朗读者，可以根据需要设置男女朗读，具体请看api文档和官方论坛
                 player.setVoiceName("vivixiaoyan");//在此设置语音播报的人选例如：vivixiaoyan、vivixiaomei、vivixiaoqi
                 player.playText("车辆正在启动", "ent=vivi21,bft=5", null);
+                // player.playText("王芳是个肉猪", "ent=vivi21,bft=5", null);
                 break;
         }
     }
+
     @OnClick(R.id.tv_connect)
-    public void onClick(){
+    public void onClick() {
         startActivity(ScanActivity.class);
     }
 }

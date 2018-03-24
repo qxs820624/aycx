@@ -9,12 +9,17 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.TextureView;
 import android.view.Window;
 
 import com.android.liyun.R;
 import com.android.liyun.http.Api;
+import com.android.liyun.http.ConstValues;
+import com.android.liyun.utils.SPUtil;
 import com.android.liyun.utils.StatusBarUtil;
+import com.android.liyun.utils.UIUtils;
 import com.android.liyun.widget.LoadingDialog;
 import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
@@ -37,6 +42,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
     protected Call call;
     protected Api mApi;
     protected Gson mGson;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +53,14 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         parameterMap = new HashMap<>();
         this.initPresenter();
         this.initView();
-        mGson=new Gson();
+        mGson = new Gson();
         Log.i("BaseActivity", getClass().getSimpleName());
 //        toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             // 默认不显示原生标题
             getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         }
 
     }
@@ -171,7 +178,6 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         LoadingDialog.showDialogForLoading(this, "加载中...", true);
 
 
-
 //        if (dialog != null && dialog.isShowing()) return;
 //        dialog = new ProgressDialog(this);
 //        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -186,6 +192,17 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
 //        if (dialog != null && dialog.isShowing()) {
 //            dialog.dismiss();
 //        }
+    }
+
+    protected boolean isLogin() {
+        String token = SPUtil.getString(UIUtils.getContext(), ConstValues.TOKEN, "");
+        String uid = SPUtil.getString(UIUtils.getContext(), ConstValues.UID, "");
+        if (TextUtils.isEmpty(token) && TextUtils.isEmpty(uid)) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
 
