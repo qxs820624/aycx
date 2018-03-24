@@ -90,7 +90,6 @@ public class ComDetailsAct extends BaseActivity {
                         if (goodsDetailBean.getStatus().equals(ConstValues.ZERO)) {
                             Glide.with(UIUtils.getContext()).load(goodsDetailBean.getImage()).into(ivImage
                             );
-
                             txtName.setText(goodsDetailBean.getName());
                             txtPayPoints.setText(goodsDetailBean.getPay_points());
 
