@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Handler;
 
 
+import com.android.liyun.base.AddBean;
+
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -213,4 +215,144 @@ public class Api {
         mHttpRequest.postDataString(url, what, "resetPwd", paramsTreeMap, false);
         mHttpTag.put("shoppCartList", 0);
     }
+
+    /**
+     * 实名认证
+     *
+     * @param what
+     * @param uid
+     * @param token
+     * @param phone
+     * @param realname
+     * @param email
+     * @param idcard
+     */
+    public void identiFication(int what, String uid, String token, String phone, String realname, String email, String idcard) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", "User");
+        paramsTreeMap.put("action", "Identification");
+        paramsTreeMap.put("uid", uid);
+        paramsTreeMap.put("token", token);
+        paramsTreeMap.put("phone", phone);
+        paramsTreeMap.put("realname", realname);
+        paramsTreeMap.put("email", email);
+        paramsTreeMap.put("idcard", idcard);
+        mHttpRequest.postDataString(url, what, "resetPwd", paramsTreeMap, false);
+        mHttpTag.put("shoppCartList", 0);
+    }
+
+    /**
+     * 推荐商品
+     *
+     * @param what
+     */
+    public void tuiJian(int what) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", "Good");
+        paramsTreeMap.put("action", "tuijian");
+        mHttpRequest.postDataString(url, what, "tuijian", paramsTreeMap, false);
+        mHttpTag.put("tuijian", 0);
+    }
+
+    /**
+     * 获取商品详情
+     *
+     * @param what
+     */
+    public void getGoodsDetail(int what, String goods_id) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", "Good");
+        paramsTreeMap.put("action", "getdetail");
+        paramsTreeMap.put("goods_id", goods_id);
+        mHttpRequest.postDataString(url, what, "getdetail", paramsTreeMap, false);
+        mHttpTag.put("getdetail", 0);
+    }
+
+    /**
+     * 添加地址
+     *
+     * @param what
+     * @param addBean
+     */
+    public void addAddress(int what, AddBean addBean) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", addBean.getModule());
+        paramsTreeMap.put("action", addBean.getAction());
+        paramsTreeMap.put("uid", addBean.getUid());
+        paramsTreeMap.put("token", addBean.getToken());
+        paramsTreeMap.put("name", addBean.getName());
+        paramsTreeMap.put("telephone", addBean.getTelephone());
+        paramsTreeMap.put("address", addBean.getAddress());
+        paramsTreeMap.put("city", addBean.getCity());
+        paramsTreeMap.put("country", addBean.getCountry());
+        paramsTreeMap.put("province", addBean.getProvince());
+        mHttpRequest.postDataString(url, what, "addAddress", paramsTreeMap, false);
+        mHttpTag.put("addAddress", 0);
+    }
+
+    /**
+     * 地址管理
+     *
+     * @param what
+     * @param uid
+     * @param token
+     */
+    public void addManagement(int what, String uid, String token) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", "Address");
+        paramsTreeMap.put("action", "load");
+        paramsTreeMap.put("uid", uid);
+        paramsTreeMap.put("token", token);
+        mHttpRequest.postDataString(url, what, "addManagement", paramsTreeMap, false);
+        mHttpTag.put("addManagement", 0);
+    }
+
+    /**
+     * 删除地址
+     *
+     * @param what
+     * @param uid
+     * @param token
+     * @param addressid
+     */
+    public void delAddress(int what, String uid, String token, String addressid) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", "Address");
+        paramsTreeMap.put("action", "delete");
+        paramsTreeMap.put("uid", uid);
+        paramsTreeMap.put("token", token);
+        paramsTreeMap.put("addressid", addressid);
+        mHttpRequest.postDataString(url, what, "delAddress", paramsTreeMap, false);
+        mHttpTag.put("delAddress", 0);
+    }
+
+    /**
+     * 設置默认地址
+     *
+     * @param what
+     * @param uid
+     * @param token
+     * @param addressid
+     * @param isdefault
+     */
+    public void setDefault(int what, String uid, String token, String addressid, String isdefault) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", "Address");
+        paramsTreeMap.put("action", "setdefault");
+        paramsTreeMap.put("uid", uid);
+        paramsTreeMap.put("token", token);
+        paramsTreeMap.put("addressid", addressid);
+        paramsTreeMap.put("isdefault", isdefault);
+        mHttpRequest.postDataString(url, what, "delAddress", paramsTreeMap, false);
+        mHttpTag.put("delAddress", 0);
+    }
+
+
 }

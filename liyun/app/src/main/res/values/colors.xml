@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#FC4D43</color>
+    <!--<color name="colorPrimary">#3F51B5</color>-->
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="activity_bg">#EEEEEE</color> <!-- 页面背景 -->
@@ -13,6 +14,8 @@
     <color name="c5c5c5">#c5c5c5</color>
     <color name="bule_deep">#2e80e4</color>
     <color name="bule">#2f7fe4</color>
+    <color name="black">#333333</color>
+    <color name="txt_FD7926">#FD7926</color>
 
 
 </resources>

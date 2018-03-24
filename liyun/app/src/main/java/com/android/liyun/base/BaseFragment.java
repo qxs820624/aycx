@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.android.liyun.http.Api;
+import com.google.gson.Gson;
 
 import butterknife.ButterKnife;
 
@@ -53,8 +55,8 @@ public abstract  class BaseFragment<T extends BasePresenter, E extends BaseModel
     protected View rootView;
     public T mPresenter;
     public E mModel;
-
-
+    protected Api mApi;
+    protected Gson mGson;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public abstract  class BaseFragment<T extends BasePresenter, E extends BaseModel
         ButterKnife.bind(this, rootView);
         initPresenter();
         initView();
+        mGson=new Gson();
         return rootView;
     }
     //获取布局文件
@@ -118,6 +121,4 @@ public abstract  class BaseFragment<T extends BasePresenter, E extends BaseModel
         if (mPresenter != null)
             mPresenter.onDestroy();
     }
-
-
 }

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin10" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout style="@style/comm_style">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="收货人" />
+
+            <EditText
+                android:id="@+id/txt_consignee"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin35"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin65"
+                android:background="@null"
+                android:hint="请填写收货人姓名"
+                android:paddingLeft="2dp"
+                android:textSize="@dimen/font_small_12" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:background="@color/view_line" />
+
+        <RelativeLayout style="@style/comm_style">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="手机号" />
+
+            <EditText
+                android:id="@+id/txt_telephone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin35"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin65"
+                android:background="@null"
+                android:hint="请填写收货人手机号码"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:paddingLeft="2dp"
+                android:textSize="@dimen/font_small_12" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:background="@color/view_line" />
+
+        <RelativeLayout
+            android:id="@+id/rlyt_select_pro"
+            style="@style/comm_style"
+            android:clickable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="所在地区" />
+
+            <TextView
+                android:id="@+id/txt_des_area"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/margin35"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/margin10"
+                android:drawableRight="@mipmap/ic_next"
+                android:gravity="center_vertical"
+                android:text="请选择"
+                android:textColor="@color/gray_yzm"
+                android:textSize="@dimen/font_small_12" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:background="@color/view_line" />
+
+        <RelativeLayout
+            style="@style/comm_style"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txt_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="收货地址"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/txt_deliveryAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/txt_des"
+                android:background="@null"
+                android:gravity="top|left"
+                android:hint="请填写详情街道地址"
+                android:lineSpacingExtra="3dp"
+                android:minLines="4"
+                android:paddingBottom="@dimen/margin5"
+                android:paddingTop="@dimen/margin5"
+                android:textSize="@dimen/font_small_12" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_affirm"
+        style="@style/textview"
+        android:layout_width="310dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="14dip"
+        android:clickable="true"
+        android:enabled="false"
+        android:text="保存地址"
+        android:textSize="14sp" />
+</LinearLayout>
+

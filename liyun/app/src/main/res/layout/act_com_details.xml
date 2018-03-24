@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/margin10">
+
+        <ImageView
+            android:id="@id/iv_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@mipmap/ic_logo" />
+
+        <TextView
+            android:id="@id/txt_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/margin10"
+            android:text="23123123"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_normal_14" />
+
+        <TextView
+            android:id="@id/txt_pay_points"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin10"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="点烟品双USB一拖二"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_normal_14" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin10"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="20000积分"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_normal_14" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/margin10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/ic_zippo"
+                android:drawablePadding="@dimen/margin5"
+                android:text="原装正品" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin10"
+                android:drawableLeft="@mipmap/ic_point_exchange"
+                android:drawablePadding="@dimen/margin5"
+                android:text="积分兑换" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin10"
+                android:drawableLeft="@mipmap/ic_pinkage"
+                android:drawablePadding="@dimen/margin5"
+                android:text="包邮" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/txt_FD7926"
+        android:gravity="center"
+        android:text="加入购物车"
+        android:textColor="@color/white" />
+
+
+</RelativeLayout>

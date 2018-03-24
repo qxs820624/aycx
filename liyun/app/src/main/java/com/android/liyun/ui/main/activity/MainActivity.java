@@ -15,6 +15,10 @@ import com.android.liyun.R;
 import com.android.liyun.base.BaseActivity;
 import com.android.liyun.base.LiyunApp;
 import com.android.liyun.service.BleService;
+import com.android.liyun.ui.account.CertificationAct;
+import com.android.liyun.ui.goods.AddAddressAct;
+import com.android.liyun.ui.goods.ManRecAddAct;
+import com.android.liyun.ui.login.LoginAct;
 import com.android.liyun.ui.main.fragment.ForumFrag;
 import com.android.liyun.ui.main.fragment.GameFrag;
 import com.android.liyun.ui.main.fragment.HomeFrag;
@@ -44,6 +48,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private LiyunApp mLiYunApp;
     private BleService mSennoSmartBleService;
     private Realm mRealm;
+
     @Override
     public int getLayoutId() {
         return R.layout.act_main;
@@ -98,7 +103,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     mViewPager.setCurrentItem(0, false);
                     return true;
                 case R.id.navigation_managemoney:
-                    // startActivity(LoginAct.class);
                     mViewPager.setCurrentItem(1, false);
                     return true;
                 case R.id.navigation_dashboard:
@@ -108,8 +112,13 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     mViewPager.setCurrentItem(3, false);
                     return true;
                 case R.id.navigation_my:
-                    mViewPager.setCurrentItem(4, false);
-                    return true;
+                    if (isLogin()) {
+                        mViewPager.setCurrentItem(4, false);
+                        return true;
+                    } else {
+                        startActivity(LoginAct.class);
+                        return false;
+                    }
             }
             return false;
         }
