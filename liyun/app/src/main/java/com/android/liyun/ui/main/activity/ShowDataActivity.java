@@ -58,6 +58,7 @@ public class ShowDataActivity extends BaseActivity implements SmartPedometerData
     private List<byte[]> arr = new ArrayList<>();
 
     private String current = "";
+    private long timeMillis;
 
     @Override
     public int getLayoutId() {
@@ -128,10 +129,13 @@ public class ShowDataActivity extends BaseActivity implements SmartPedometerData
             if (s.equals(current)) {
                 return;
             } else {
+                mApi.driveVideo(DRIVEVIDEL, SPUtil.getString(UIUtils.getContext(), ConstValues.UID, ""),
+                        SPUtil.getString(UIUtils.getContext(), ConstValues.TOKEN, ""), Arrays.toString(data));
                 System.out.println(s);
                 switch (s) {
                     case "a1":
                         current = "a1";
+                        timeMillis = System.currentTimeMillis();
                         sayCar("车头检测中，请等待");
                         break;
                     case "a2":
@@ -209,8 +213,7 @@ public class ShowDataActivity extends BaseActivity implements SmartPedometerData
 
                 tv_fff6data.setText(Arrays.toString(data));
 //                System.out.println(Arrays.toString(data));
-                mApi.driveVideo(DRIVEVIDEL, SPUtil.getString(UIUtils.getContext(), ConstValues.UID, ""),
-                        SPUtil.getString(UIUtils.getContext(), ConstValues.TOKEN, ""), Arrays.toString(data));
+
 
             }
         });
