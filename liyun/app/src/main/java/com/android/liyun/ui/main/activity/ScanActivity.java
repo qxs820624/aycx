@@ -41,7 +41,7 @@ import butterknife.OnClick;
 
 /**
  * @author hzx
- *         created at 2018/3/20 12:15
+ * created at 2018/3/20 12:15
  */
 public class ScanActivity extends BaseActivity implements ConnectStatusManager.StatusChangeCallback {
     @BindView(R.id.lv_device)
@@ -137,7 +137,7 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
     private void scanDevice() {
         if (mSennoSmartBleService != null) {
             mSennoSmartBleService.checkBleBeforeScan(mBleScanCallback);
-        }else {
+        } else {
             Log.e("TAG", "ble==null");
         }
 
@@ -172,7 +172,7 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
         @Override
         public void discoverDevice(final BluetoothDevice bluetoothDevice, int rssi) {
             // TODO: 2016/7/29 这里是匹配设备的地方,暂时是以名字SennoSmart作为判断条件
-            //   if (getResources().getString(R.string.device_name).equals(bluetoothDevice.getName())) {
+            //  if (getResources().getString(R.string.device_name).equals(bluetoothDevice.getName())) {
 
             final Device device = new Device();
             device.setBluetoothDevice(bluetoothDevice);
@@ -185,7 +185,7 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
                 @Override
                 public void run() {
                     mDeviceAdapter.notifyDataSetChanged();
-                   // mDeviceAdapter.updateListView(devices);
+                    mDeviceAdapter.updateListView(devices);
                 }
             });
 

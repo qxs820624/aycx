@@ -17,4 +17,7 @@ public interface RequestWhatI {
     int ADDMAN = 9;
     int DELADD = 10;//刪除地址
     int SETDEFAULT = 11;//设置默认地址
+    int ADDCART = 12;//添加购物车
+    int CARTLIST = 13;//购物车列表
+    int DRIVEVIDEL = 14;//行车记录
 }
