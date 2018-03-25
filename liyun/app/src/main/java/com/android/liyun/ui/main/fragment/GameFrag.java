@@ -57,7 +57,6 @@ public class GameFrag extends BaseFragment {
                 //设置语音朗读者，可以根据需要设置男女朗读，具体请看api文档和官方论坛
                 player.setVoiceName("vivixiaoyan");//在此设置语音播报的人选例如：vivixiaoyan、vivixiaomei、vivixiaoqi
                 player.playText("车辆正在启动", "ent=vivi21,bft=5", null);
-                // player.playText("王芳是个肉猪", "ent=vivi21,bft=5", null);
                 break;
         }
     }

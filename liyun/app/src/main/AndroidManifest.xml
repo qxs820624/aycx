@@ -10,9 +10,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <!--<uses-permission android:name="android.permission.WRITE_SETTINGS" />-->
+    <!-- <uses-permission android:name="android.permission.WRITE_SETTINGS" /> -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />-->
+    <!-- <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> -->
     <!-- Android 6.0 BLE Scan -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -41,10 +41,11 @@
         <service android:name=".service.BleService" />
 
         <activity android:name=".ui.account.CertificationAct" />
-        <activity android:name=".ui.goods.ComDetailsAct"></activity>
-        <activity android:name=".ui.goods.AddAddressAct"></activity>
-        <activity android:name=".ui.goods.ManRecAddAct"></activity>
-        <activity android:name=".ui.goods.ModAddAct"></activity>
+        <activity android:name=".ui.goods.ComDetailsAct" />
+        <activity android:name=".ui.goods.AddAddressAct" />
+        <activity android:name=".ui.goods.ManRecAddAct" />
+        <activity android:name=".ui.goods.ModAddAct" />
+        <activity android:name=".ui.goods.CartListAct"></activity>
     </application>
 
 </manifest>

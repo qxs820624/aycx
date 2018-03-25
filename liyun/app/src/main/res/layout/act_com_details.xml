@@ -90,14 +90,34 @@
     </LinearLayout>
 
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/txt_FD7926"
-        android:gravity="center"
-        android:text="加入购物车"
-        android:textColor="@color/white" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txt_add_cart"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:background="@color/txt_FD7926"
+            android:gravity="center"
+            android:text="加入购物车"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/txt_exchange"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:gravity="center"
+            android:text="立即兑换"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
 
 </RelativeLayout>
