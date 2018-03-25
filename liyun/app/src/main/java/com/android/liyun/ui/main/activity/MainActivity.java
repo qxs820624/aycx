@@ -100,6 +100,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    startActivity(AddAddressAct.class);
                     mViewPager.setCurrentItem(0, false);
                     return true;
                 case R.id.navigation_managemoney:
