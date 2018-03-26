@@ -15,7 +15,6 @@ import com.android.liyun.base.LiyunApp;
 import com.android.liyun.bean.BaseBen;
 import com.android.liyun.http.Api;
 import com.android.liyun.http.ConstValues;
-import com.android.liyun.http.RequestWhatI;
 import com.android.liyun.service.BleService;
 import com.android.liyun.utils.SPUtil;
 import com.android.liyun.utils.UIUtils;
@@ -23,7 +22,6 @@ import com.iflytek.speech.SynthesizerPlayer;
 import com.liyun.blelibrary.BluetoothLeDevice;
 import com.liyun.blelibrary.listener.SmartPedometerDataCallback;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,12 +29,10 @@ import java.util.List;
 import butterknife.BindView;
 
 import static com.android.liyun.http.RequestWhatI.DRIVEVIDEL;
-import static com.android.liyun.http.RequestWhatI.REGIST;
-import static com.android.liyun.http.RequestWhatI.SENDCODE;
 
 /**
  * @author hzx
- * created at 2018/3/20 12:15
+ *         created at 2018/3/20 12:15
  */
 public class ShowDataActivity extends BaseActivity implements SmartPedometerDataCallback {
     @BindView(R.id.tv_ModelNumber)
