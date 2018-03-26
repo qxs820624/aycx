@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.goods.AddOrderAct">
+
+    <include layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:id="@+id/llyt_select_address"
+        style="@style/comm_style">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/ic_add_address"
+            android:drawablePadding="@dimen/margin10"
+            android:drawableRight="@mipmap/ic_next"
+            android:text="请填写收货地址"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin10" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/margin10">
+
+        <ImageView
+            android:id="@+id/iv_goods"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:src="@mipmap/ic_logo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/margin10">
+
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fdsafdsafajljlkk"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/txt_model"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fdsafdsafajljlkk"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/txt_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fdsafdsafajljlkk"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <RelativeLayout style="@style/comm_style">
+
+        <TextView
+            android:id="@+id/txt_pay_points"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="1200积分" />
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:theme="@style/MyCheckBox" />
+    </RelativeLayout>
+
+    <LinearLayout
+        style="@style/comm_style"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="留言" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin10"
+            android:background="@null"
+            android:hint="请填写您的要求等"
+            android:textSize="@dimen/font_normal_14" />
+    </LinearLayout>
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin5" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin46"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/txt_des"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:text="实付金额：" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/txt_des"
+            android:gravity="center_vertical"
+            android:text="实付金额"
+            android:textColor="@color/red" />
+
+        <TextView
+            android:id="@+id/txt_add_order"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/red"
+            android:gravity="center"
+            android:text="提交订单"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -71,7 +71,7 @@ public class ManRecAddAct extends BaseActivity implements AdapterView.OnItemClic
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.add_menu, menu);
+        getMenuInflater().inflate(R.menu.add_menu, menu);
         return true;
     }
 
@@ -81,9 +81,9 @@ public class ManRecAddAct extends BaseActivity implements AdapterView.OnItemClic
             case android.R.id.home:
                 finish();
                 break;
-//            case R.id.toolbar_add:
-//                startActivity(AddAddressAct.class);
-//                break;
+            case R.id.toolbar_add:
+                startActivity(AddAddressAct.class);
+                break;
             default:
                 break;
         }
@@ -118,7 +118,7 @@ public class ManRecAddAct extends BaseActivity implements AdapterView.OnItemClic
                                         case R.id.txt_edit://编辑收货地址
                                             position = (int) view.getTag();
 
-                                            Intent intent=new Intent();
+                                            Intent intent = new Intent();
                                             startActivity(ModAddAct.class);
                                             Toast.makeText(UIUtils.getContext(), position + "", Toast.LENGTH_SHORT).show();
                                             break;

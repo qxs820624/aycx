@@ -290,6 +290,7 @@ public class Api {
         paramsTreeMap.put("city", addBean.getCity());
         paramsTreeMap.put("country", addBean.getCountry());
         paramsTreeMap.put("province", addBean.getProvince());
+        paramsTreeMap.put("isdefault", "0");
         mHttpRequest.postDataString(url, what, "addAddress", paramsTreeMap, false);
         mHttpTag.put("addAddress", 0);
     }
@@ -396,6 +397,14 @@ public class Api {
         mHttpTag.put("cartList", 0);
     }
 
+    /**
+     * 蓝牙数据
+     *
+     * @param what
+     * @param uid
+     * @param token
+     * @param common
+     */
     public void driveVideo(int what, String uid, String token, String common) {
         String url = ConstValues.url;
         TreeMap<String, String> paramsTreeMap = new TreeMap<>();
@@ -403,6 +412,30 @@ public class Api {
         paramsTreeMap.put("action", "sendDriving");
         paramsTreeMap.put("uid", uid);
         paramsTreeMap.put("token", token);
+        paramsTreeMap.put("common", common);
+        mHttpRequest.postDataString(url, what, "cartList", paramsTreeMap, false);
+        mHttpTag.put("cartList", 0);
+    }
+
+    /**
+     * 添加订单
+     *
+     * @param what
+     * @param uid
+     * @param token
+     * @param addressid
+     * @param goodsid
+     * @param common
+     */
+    public void addOrder(int what, String uid, String token, String addressid, String goodsid, String common) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", "Order");
+        paramsTreeMap.put("action", "add");
+        paramsTreeMap.put("uid", uid);
+        paramsTreeMap.put("token", token);
+        paramsTreeMap.put("addressid", addressid);
+        paramsTreeMap.put("goodsid", goodsid);
         paramsTreeMap.put("common", common);
         mHttpRequest.postDataString(url, what, "cartList", paramsTreeMap, false);
         mHttpTag.put("cartList", 0);

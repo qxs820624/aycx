@@ -22,4 +22,5 @@
     <item name="iv_image" type="id" />
     <item name="txt_name" type="id" />
     <item name="txt_pay_points" type="id" />
+    <item name="txt_settlement" type="id" />
 </resources>

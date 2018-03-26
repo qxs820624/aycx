@@ -1,5 +1,6 @@
 package com.android.liyun.ui.goods;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -53,6 +54,7 @@ public class ComDetailsAct extends BaseActivity {
     private String goods_id;
     private String uid;
     private String token;
+    private GoodsDetailBean goodsDetailBean;
 
     @Override
     public int getLayoutId() {
@@ -99,7 +101,7 @@ public class ComDetailsAct extends BaseActivity {
             if (msg.arg1 != -1) {
                 switch (msg.what) {
                     case GET_GOODS_DETAIL:
-                        GoodsDetailBean goodsDetailBean = mGson.fromJson(msg.obj.toString(), GoodsDetailBean.class);
+                        goodsDetailBean = mGson.fromJson(msg.obj.toString(), GoodsDetailBean.class);
                         if (goodsDetailBean.getStatus().equals(ConstValues.ZERO)) {
                             Glide.with(UIUtils.getContext()).load(goodsDetailBean.getImage()).into(ivImage
                             );
@@ -133,6 +135,13 @@ public class ComDetailsAct extends BaseActivity {
                 mApi.addCart(RequestWhatI.ADDCART, uid, token, goods_id, "1", "fads");
                 break;
             case R.id.txt_exchange:
+
+                if (goodsDetailBean != null) {
+                    Intent intent = new Intent();
+                    intent.putExtra("goodsDetailBean", goodsDetailBean);
+                    intent.setClass(UIUtils.getContext(), AddOrderAct.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }

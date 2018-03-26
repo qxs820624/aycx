@@ -20,4 +20,5 @@ public interface RequestWhatI {
     int ADDCART = 12;//添加购物车
     int CARTLIST = 13;//购物车列表
     int DRIVEVIDEL = 14;//行车记录
+    int ADD_ORDER=15;//下单
 }
