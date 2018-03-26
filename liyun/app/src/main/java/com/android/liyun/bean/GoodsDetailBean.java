@@ -1,6 +1,8 @@
 package com.android.liyun.bean;
 
-public class GoodsDetailBean {
+import java.io.Serializable;
+
+public class GoodsDetailBean  implements Serializable{
 
 
     /**
