@@ -47,6 +47,7 @@
         <activity android:name=".ui.goods.ModAddAct" />
         <activity android:name=".ui.goods.CartListAct" />
         <activity android:name=".ui.goods.AddOrderAct"></activity>
+        <activity android:name=".ui.manager.ManagementAct"/>
     </application>
 
 </manifest>

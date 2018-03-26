@@ -1,18 +1,15 @@
 package com.android.liyun.ui.main.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.android.liyun.R;
 import com.android.liyun.base.BaseFragment;
 import com.android.liyun.ui.account.CertificationAct;
 import com.android.liyun.ui.goods.ManRecAddAct;
+import com.android.liyun.ui.manager.ManagementAct;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -47,7 +44,7 @@ public class MyFrag extends BaseFragment {
     }
 
 
-    @OnClick({R.id.llyt_all_orders, R.id.rlyt_dri_score, R.id.rlyt_my_rank, R.id.rlyt_his_rec, R.id.rlyt_anth, R.id.rlyt_my_favorite})
+    @OnClick({R.id.llyt_all_orders, R.id.rlyt_dri_score, R.id.rlyt_my_rank, R.id.rlyt_his_rec, R.id.rlyt_anth, R.id.rlyt_my_favorite,R.id.rlyt_my_manager})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.llyt_all_orders:
@@ -63,6 +60,9 @@ public class MyFrag extends BaseFragment {
                 startActivity(CertificationAct.class);
                 break;
             case R.id.rlyt_my_favorite:
+                break;
+            case R.id.rlyt_my_manager:
+                startActivity(ManagementAct.class);
                 break;
         }
     }

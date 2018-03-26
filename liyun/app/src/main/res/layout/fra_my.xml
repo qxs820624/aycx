@@ -149,26 +149,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:drawableLeft="@mipmap/ic_all_orders"
+                    android:drawableLeft="@mipmap/ic_all_order"
                     android:drawablePadding="@dimen/margin10"
                     android:drawableRight="@mipmap/ic_next"
                     android:gravity="center_vertical"
                     android:text="@string/all_order"
-                    android:textSize="@dimen/font_normal_14" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                style="@style/comm_style"
-                android:clickable="true">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:drawableLeft="@mipmap/ic_shopping_cart"
-                    android:drawablePadding="@dimen/margin10"
-                    android:drawableRight="@mipmap/ic_next"
-                    android:gravity="center_vertical"
-                    android:text="购物车"
                     android:textSize="@dimen/font_normal_14" />
             </RelativeLayout>
 
@@ -273,19 +258,23 @@
                     android:text="@string/my_favorite"
                     android:textSize="@dimen/font_normal_14" />
             </RelativeLayout>
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
 
             <RelativeLayout
+                android:id="@+id/rlyt_my_manager"
                 style="@style/comm_style"
                 android:clickable="true">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:drawableLeft="@mipmap/ic_dev_man"
+                    android:drawableLeft="@mipmap/ic_my_manager"
                     android:drawablePadding="@dimen/margin10"
                     android:drawableRight="@mipmap/ic_next"
                     android:gravity="center_vertical"
-                    android:text="设备管理"
+                    android:text="@string/my_manager"
                     android:textSize="@dimen/font_normal_14" />
             </RelativeLayout>
 

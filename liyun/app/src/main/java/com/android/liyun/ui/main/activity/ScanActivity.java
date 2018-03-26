@@ -34,14 +34,17 @@ import com.android.liyun.utils.TimeStampUtil;
 import com.liyun.blelibrary.BluetoothLeDevice;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
  * @author hzx
- * created at 2018/3/20 12:15
+ *         created at 2018/3/20 12:15
  */
 public class ScanActivity extends BaseActivity implements ConnectStatusManager.StatusChangeCallback {
     @BindView(R.id.lv_device)
@@ -54,7 +57,8 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
     //表示当前扫描状态的变量
     private boolean isScanning = false;
     private boolean isConnecting = false;
-    private List<Device> devices = new ArrayList<>();
+    private ArrayList<Device> devices = new ArrayList<>();
+    private List<Device> devicesList = new ArrayList<>();
     private DeviceAdapter mDeviceAdapter;
 
     private static final int REQUEST_ENABLE_BT = 1001;
@@ -91,7 +95,7 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
     private ProgressDialog progressDialog;
 
     private void initListview() {
-        mDeviceAdapter = new DeviceAdapter(this, devices);
+        mDeviceAdapter = new DeviceAdapter(this, devicesList);
         lvDevice.setAdapter(mDeviceAdapter);
         lvDevice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -168,27 +172,21 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
 
-
         @Override
         public void discoverDevice(final BluetoothDevice bluetoothDevice, int rssi) {
-            // TODO: 2016/7/29 这里是匹配设备的地方,暂时是以名字SennoSmart作为判断条件
-            //  if (getResources().getString(R.string.device_name).equals(bluetoothDevice.getName())) {
-
             final Device device = new Device();
             device.setBluetoothDevice(bluetoothDevice);
             device.setName(bluetoothDevice.getName());
             device.setRssi(rssi);
             device.setAddress(bluetoothDevice.getAddress());
-            // devices.clear();
             devices.add(device);
+            devicesList = removeDuplicteUsers(devices);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mDeviceAdapter.notifyDataSetChanged();
-                    mDeviceAdapter.updateListView(devices);
+                    mDeviceAdapter.updateListView(devicesList);
                 }
             });
-
             //当发现设备后继续让蓝牙扫描5秒
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -196,7 +194,6 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
                     mSennoSmartBleService.stopScanning();
                 }
             }, 5000);
-            //  }
         }
 
         @Override
@@ -211,7 +208,7 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    devices.clear();
+                    devicesList.clear();
                     mDeviceAdapter.notifyDataSetChanged();
                     pb.setVisibility(View.VISIBLE);
                 }
@@ -271,6 +268,19 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
 
     }
 
+    public ArrayList<Device> removeDuplicteUsers(ArrayList<Device> userList) {
+        Set<Device> s = new TreeSet<>(new Comparator<Device>() {
+
+            @Override
+            public int compare(Device o1, Device o2) {
+                return o1.getAddress().compareTo(o2.getAddress());
+            }
+
+        });
+
+        s.addAll(userList);
+        return new ArrayList<>(s);
+    }
 
     /**
      * 收到连接超时的广播

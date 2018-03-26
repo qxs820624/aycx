@@ -146,9 +146,7 @@ public class BleService extends Service {
             }
             //发现设备接口回调，只为绑定设备而用
             if (mBleScanCallback != null) {
-                if(rssi>-55){
                 mBleScanCallback.discoverDevice(bluetoothDevice, rssi);
-                }
             }
             //找到测试目标设备
             if (mBleScanCallback != null) {

@@ -41,7 +41,6 @@ public class GameFrag extends BaseFragment {
 
     @Override
     protected void initView() {
-
     }
 
     @Override
