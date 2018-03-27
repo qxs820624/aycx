@@ -441,4 +441,60 @@ public class Api {
         mHttpTag.put("cartList", 0);
     }
 
+    /**
+     * 获取默认地址
+     *
+     * @param what
+     * @param uid
+     * @param token
+     */
+    public void getDefaultAdd(int what, String uid, String token) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", "Address");
+        paramsTreeMap.put("action", "getdefault");
+        paramsTreeMap.put("uid", uid);
+        paramsTreeMap.put("token", token);
+        mHttpRequest.postDataString(url, what, "getDefaultAdd", paramsTreeMap, false);
+        mHttpTag.put("getDefaultAdd", 0);
+    }
+
+    /**
+     * 添加收藏
+     *
+     * @param what
+     * @param uid
+     * @param token
+     * @param goods_id
+     */
+    public void Favorite(int what, String uid, String token, String goods_id) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", "Favorite");
+        paramsTreeMap.put("action", "add");
+        paramsTreeMap.put("uid", uid);
+        paramsTreeMap.put("token", token);
+        paramsTreeMap.put("goods_id", goods_id);
+        mHttpRequest.postDataString(url, what, "getDefaultAdd", paramsTreeMap, false);
+        mHttpTag.put("getDefaultAdd", 0);
+    }
+
+    /**
+     * 商品列表
+     *
+     * @param what
+     * @param categoryid
+     * @param page
+     */
+    public void goodsList(int what, String categoryid, String page) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", "Good");
+        paramsTreeMap.put("action", "load");
+        paramsTreeMap.put("categoryid", categoryid);
+        paramsTreeMap.put("page", page);
+        mHttpRequest.postDataString(url, what, "getDefaultAdd", paramsTreeMap, false);
+        mHttpTag.put("getDefaultAdd", 0);
+    }
+
 }

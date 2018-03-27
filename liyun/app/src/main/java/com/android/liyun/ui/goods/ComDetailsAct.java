@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.android.liyun.http.RequestWhatI.FAVORITE;
 import static com.android.liyun.http.RequestWhatI.GET_GOODS_DETAIL;
 
 /**
@@ -55,6 +57,7 @@ public class ComDetailsAct extends BaseActivity {
     private String uid;
     private String token;
     private GoodsDetailBean goodsDetailBean;
+    private BaseBen bean;
 
     @Override
     public int getLayoutId() {
@@ -85,13 +88,25 @@ public class ComDetailsAct extends BaseActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.add_menu, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
+            case R.id.toolbar_add:
+                mApi.Favorite(FAVORITE, uid, token, goods_id);
+                break;
+            default:
+                break;
         }
-        return super.onOptionsItemSelected(item);
+        return true;
+
     }
 
     private Handler handler = new Handler() {
@@ -115,13 +130,18 @@ public class ComDetailsAct extends BaseActivity {
                         break;
 
                     case RequestWhatI.ADDCART:
-                        BaseBen bean = mGson.fromJson(msg.obj.toString(), BaseBen.class);
+                        bean = mGson.fromJson(msg.obj.toString(), BaseBen.class);
                         if (bean.getStatus().equals(ConstValues.ZERO)) {
                             startActivity(CartListAct.class);
                             Toast.makeText(UIUtils.getContext(), bean.getMsg(), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(UIUtils.getContext(), bean.getMsg(), Toast.LENGTH_SHORT).show();
                         }
+                        break;
+
+                    case FAVORITE:
+                        bean = mGson.fromJson(msg.obj.toString(), BaseBen.class);
+                        Toast.makeText(UIUtils.getContext(), bean.getMsg(), Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
