@@ -465,20 +465,19 @@ public class BleService extends Service {
         double energyNum = TimeStampUtil.calculateEnergyNum(Constant.START_CONNECT_TIME, disconnectTime);
         DecimalFormat df = new DecimalFormat("#0.00");
         String energyNumFormat = df.format(energyNum);
-        //saveData(false,Double.parseDouble(energyNumFormat),disconnectTime);
+        saveData(false,Double.parseDouble(energyNumFormat),disconnectTime);
         Log.e("time", "disconnecttime=" + disconnectTime + ",energyNum=" + energyNum + "--energyNumFormat=" + Double.parseDouble(energyNumFormat));
     }
     private void saveData(final boolean isUpload, final double num, final String disconnectTime) {
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                ConnectionTimeBean connectionTimeBean = realm.createObject(ConnectionTimeBean.class);
-               // connectionTimeBean.setId(generateNewPrimaryKey());
-                connectionTimeBean.setUpload(isUpload);
-                connectionTimeBean.setCreateTime(disconnectTime);
-                connectionTimeBean.setenergyNum(num);
-            }
-        });
+                //TODO  disconnectTime这里把断开时候时间作为创建时间，也可以把开始时间作为
+                ConnectionTimeBean cc = realm.createObject(ConnectionTimeBean.class,generateNewPrimaryKey());
+                cc.setCreateTime(disconnectTime); //这里把断开链接
+                cc.setUpload(isUpload);//TODO 没有上传服务器的 当你点击水滴就上传服务器，上传成功就更改为true
+                cc.setEnergyNum(num);  //TODO 暂时算出来的水滴数量
+            }});
     }
     //获取最大的PrimaryKey并加一
     private long generateNewPrimaryKey() {
