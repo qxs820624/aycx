@@ -13,10 +13,12 @@ import android.widget.Toast;
 
 import com.android.liyun.R;
 import com.android.liyun.base.BaseActivity;
+import com.android.liyun.bean.AddBean;
 import com.android.liyun.bean.BaseBen;
 import com.android.liyun.bean.GoodsDetailBean;
 import com.android.liyun.http.Api;
 import com.android.liyun.http.ConstValues;
+import com.android.liyun.http.RequestWhatI;
 import com.android.liyun.utils.SPUtil;
 import com.android.liyun.utils.UIUtils;
 import com.bumptech.glide.Glide;
@@ -24,7 +26,10 @@ import com.bumptech.glide.Glide;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.addapp.pickers.util.ConvertUtils;
 
+import static com.android.liyun.http.RequestWhatI.ADD_ORDER;
+import static com.android.liyun.http.RequestWhatI.GET_DEFAULT_ADD;
 import static com.android.liyun.http.RequestWhatI.SENDCODE;
 
 public class AddOrderAct extends BaseActivity {
@@ -46,6 +51,14 @@ public class AddOrderAct extends BaseActivity {
     LinearLayout llytSelectAddress;
     @BindView(R.id.txt_add_order)
     TextView txtAddOrder;
+    @BindView(R.id.llyt_address)
+    LinearLayout llytAddress;
+    @BindView(R.id.txt_name_shr)
+    TextView txtNameShr;
+    @BindView(R.id.txt_phone)
+    TextView txtPhone;
+    @BindView(R.id.txt_address)
+    TextView txtAddress;
     /**
      * 商品id
      */
@@ -53,6 +66,8 @@ public class AddOrderAct extends BaseActivity {
     private String token;
     private String uid;
     private GoodsDetailBean goodsDetailBean;
+    private BaseBen baseBen;
+    private String addressid;
 
     @Override
     public int getLayoutId() {
@@ -70,8 +85,8 @@ public class AddOrderAct extends BaseActivity {
         mApi = new Api(handler, this);
         token = SPUtil.getString(UIUtils.getContext(), ConstValues.TOKEN, "");
         uid = SPUtil.getString(UIUtils.getContext(), ConstValues.UID, "");
-        goods_id = getIntent().getStringExtra("goods_id");
         goodsDetailBean = (GoodsDetailBean) getIntent().getSerializableExtra("goodsDetailBean");
+        goods_id = goodsDetailBean.getGoods_id();
 
         String name = goodsDetailBean.getName();
         String pay_points = goodsDetailBean.getPay_points();
@@ -93,7 +108,7 @@ public class AddOrderAct extends BaseActivity {
         toolbar.setTitle("下单");
         toolbar.setTitleTextColor(Color.WHITE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        mApi.addOrder(RequestWhatI.ADD_ORDER,uid,token,addre);
+        mApi.getDefaultAdd(RequestWhatI.GET_DEFAULT_ADD, uid, token);
     }
 
     private Handler handler = new Handler() {
@@ -103,12 +118,46 @@ public class AddOrderAct extends BaseActivity {
             if (msg.arg1 != -1) {
                 switch (msg.what) {
                     case SENDCODE:
-                        BaseBen baseBen = mGson.fromJson(msg.obj.toString(), BaseBen.class);
+                        baseBen = mGson.fromJson(msg.obj.toString(), BaseBen.class);
                         if (baseBen.getStatus().equals(ConstValues.ZERO)) {
                             Toast.makeText(UIUtils.getContext(), baseBen.getMsg(), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(UIUtils.getContext(), baseBen.getMsg(), Toast.LENGTH_SHORT).show();
                         }
+                        break;
+
+                    case GET_DEFAULT_ADD:
+                        AddBean addBean = mGson.fromJson(msg.obj.toString(), AddBean.class);
+                        //如果没有地址
+                        if (addBean.getAddressid().equals(ConstValues.ZERO)) {
+                            llytSelectAddress.setVisibility(View.VISIBLE);
+                            llytAddress.setVisibility(View.GONE);
+
+                        } else {
+                            llytSelectAddress.setVisibility(View.GONE);
+                            llytAddress.setVisibility(View.VISIBLE);
+                            String name = addBean.getName();
+                            String telephone = addBean.getTelephone();
+                            String address = addBean.getAddress();
+                            addressid = addBean.getAddressid();//地址id
+                            txtNameShr.setText(name);
+                            txtPhone.setText(telephone);
+                            txtAddress.setText(address);
+                        }
+                        break;
+
+                    case ADD_ORDER:
+                        baseBen = mGson.fromJson(msg.obj.toString(), BaseBen.class);
+                        Toast.makeText(UIUtils.getContext(), baseBen.getMsg(), Toast.LENGTH_SHORT).show();
+                        if (baseBen.getStatus().equals(ConstValues.ZERO)) {
+                            UIUtils.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    AddOrderAct.this.finish();
+                                }
+                            }, 1500);
+                        }
+
                         break;
                 }
             }
@@ -122,6 +171,7 @@ public class AddOrderAct extends BaseActivity {
                 startActivity(ManRecAddAct.class);
                 break;
             case R.id.txt_add_order:
+                mApi.addOrder(ADD_ORDER, uid, token, addressid, goods_id, "fadsfads");
                 break;
         }
     }

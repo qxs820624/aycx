@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.android.liyun.R;
 import com.android.liyun.bean.CommendBean;
 import com.android.liyun.inter.OnItemClickListener;
 import com.android.liyun.ui.goods.ComDetailsAct;
+import com.android.liyun.ui.goods.GoodsListAct;
 import com.android.liyun.ui.login.RegistAct;
 import com.android.liyun.utils.UIUtils;
 import com.bumptech.glide.Glide;
@@ -74,7 +76,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return BANNER_VIEW_TYPE;
         } else if (position == 1) {//第一个是频道布局
             return CHANNEL_VIEW_TYPE;
-        } else if (position == 2) {//第2个位置是美女布局
+        } else if (position == 2) {//第2个位置是
             return GIRL_VIEW_TYPE;
         } else if (position == 3) {//其他位置返回正常的布局
             return INSURANCE_VOUCHERS;
@@ -99,7 +101,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else if (viewType == CHANNEL_VIEW_TYPE) {//频道的type
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mail_head, parent, false);//解决宽度不能铺满
             return new ChannelHolder(view);
-        } else if (viewType == GIRL_VIEW_TYPE) {//美女
+        } else if (viewType == GIRL_VIEW_TYPE) {//
             // view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_girl, parent, false);//解决宽度不能铺满
             view = getView(R.layout.item_girl);
             return new OneGoodsHolder(view);
@@ -237,6 +239,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public OneGoodsHolder(View itemView) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.recycleView);
+            RelativeLayout relativeLayout = (RelativeLayout) itemView.findViewById(R.id.rl_guess_more);
+            relativeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.putExtra("categoryid", "1");
+                    intent.setClass(UIUtils.getContext(), GoodsListAct.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    UIUtils.getContext().startActivity(intent);
+                }
+            });
         }
     }
 

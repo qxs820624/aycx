@@ -17,6 +17,7 @@ import com.android.liyun.base.LiyunApp;
 import com.android.liyun.service.BleService;
 import com.android.liyun.ui.account.CertificationAct;
 import com.android.liyun.ui.goods.AddAddressAct;
+import com.android.liyun.ui.goods.GoodsListAct;
 import com.android.liyun.ui.goods.ManRecAddAct;
 import com.android.liyun.ui.login.LoginAct;
 import com.android.liyun.ui.main.fragment.ForumFrag;
@@ -100,7 +101,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    startActivity(AddAddressAct.class);
+                    startActivity(GoodsListAct.class);
                     mViewPager.setCurrentItem(0, false);
                     return true;
                 case R.id.navigation_managemoney:
