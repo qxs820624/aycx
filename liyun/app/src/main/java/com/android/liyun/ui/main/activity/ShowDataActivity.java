@@ -117,7 +117,7 @@ public class ShowDataActivity extends BaseActivity implements SmartPedometerData
     public void getActionRecordData(final byte[] data, final byte action) {
         byte[] bytes = new byte[1];
         bytes[0] = action;
-        String s = bytesToHexString(bytes);
+        final String s = bytesToHexString(bytes);
         if (s.equals("00")) {
 
         } else {
@@ -199,7 +199,7 @@ public class ShowDataActivity extends BaseActivity implements SmartPedometerData
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                tv_fff6.setText(action + "");
+                tv_fff6.setText(s);
                 for (int i = 0; i < data.length; i++) {
                     if (data[18] != 0) {
                         arr.add(data);

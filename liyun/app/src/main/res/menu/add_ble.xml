@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/toolbar_addble"
+        android:icon="@mipmap/ic_add_bankcard"
+        android:orderInCategory="0"
+        android:title="添加蓝牙设备"
+        app:showAsAction="always" />
+</menu>

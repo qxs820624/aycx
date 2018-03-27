@@ -40,21 +40,11 @@ public class ConnectionTimeBean extends RealmObject implements Serializable {
         isUpload = upload;
     }
 
-    public double getenergyNum() {
+    public double getEnergyNum() {
         return energyNum;
     }
 
-    public void setenergyNum(double energyNum) {
+    public void setEnergyNum(double energyNum) {
         this.energyNum = energyNum;
-    }
-
-    @Override
-    public String toString() {
-        return "ConnectionTimeBean{" +
-                "id=" + id +
-                ", createTime='" + createTime + '\'' +
-                ", isUpload=" + isUpload +
-                ", energyNum='" + energyNum + '\'' +
-                '}';
     }
 }

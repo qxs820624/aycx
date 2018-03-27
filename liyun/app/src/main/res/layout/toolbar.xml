@@ -23,6 +23,5 @@
             android:textSize="@dimen/font_norma20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
     </android.support.v7.widget.Toolbar>
 </android.support.design.widget.AppBarLayout>

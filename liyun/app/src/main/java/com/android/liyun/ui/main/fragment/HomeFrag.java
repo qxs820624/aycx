@@ -35,6 +35,12 @@ public class HomeFrag extends BaseFragment {
 
     @Override
     protected void initView() {
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         //初始化数据库
         mRealm = Realm.getDefaultInstance();
         connectionTimeBeans = mRealm.where(ConnectionTimeBean.class).equalTo("isUpload", false).findAllSorted("id", Sort.DESCENDING);
@@ -42,11 +48,23 @@ public class HomeFrag extends BaseFragment {
         mWaters = new ArrayList<>();
         double energySum = 0;
         for (int i = 0; i <connectionTimeBeans.size(); i++) {
-            Log.e("TAG", connectionTimeBeans.get(i).getenergyNum() + "");
-            energySum+=connectionTimeBeans.get(i).getenergyNum();
+            energySum+=connectionTimeBeans.get(i).getEnergyNum();
         }
-            mWaters.add(new Water(energySum,""));
-             mWaterView.setWaters(mWaters);
+        Log.e("TAG", "size="+connectionTimeBeans.size());
+        mWaters.add(new Water(energySum,""));
+        mWaterView.setWaters(mWaters);
     }
 
+    //TODO   当点击水滴就上传服务器 上传成功 就更改数据库记录的状态 改为true
+    private void updateBean(final ConnectionTimeBean connectionTimeBean) {
+        connectionTimeBean.setUpload(true);
+        mRealm.executeTransaction(new Realm.Transaction()
+        {
+            @Override
+            public void execute(Realm realm)
+            {
+                realm.copyToRealmOrUpdate(connectionTimeBean);
+            }
+        });
+    }
 }

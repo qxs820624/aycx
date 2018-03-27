@@ -283,13 +283,15 @@
                 android:layout_height="1dp" />
 
             <RelativeLayout
-                android:id="@+id/rlyt_my_manager"
+                android:id="@+id/rlyt_my_device_list"
                 style="@style/comm_style"
                 android:clickable="true">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     android:drawableLeft="@mipmap/ic_my_manager"
                     android:drawablePadding="@dimen/margin10"
                     android:drawableRight="@mipmap/ic_next"
