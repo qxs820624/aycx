@@ -6,7 +6,9 @@ import android.widget.RelativeLayout;
 import com.android.liyun.R;
 import com.android.liyun.base.BaseFragment;
 import com.android.liyun.ui.account.CertificationAct;
-import com.android.liyun.ui.goods.ManRecAddAct;
+import com.android.liyun.ui.account.AllOrderListAct;
+import com.android.liyun.ui.account.CartListAct;
+import com.android.liyun.ui.goods.FavoritesListAct;
 import com.android.liyun.ui.manager.DeviceListAct;
 
 import butterknife.BindView;
@@ -44,12 +46,14 @@ public class MyFrag extends BaseFragment {
     }
 
 
-    @OnClick({R.id.llyt_all_orders, R.id.rlyt_dri_score, R.id.rlyt_my_rank, R.id.rlyt_his_rec, R.id.rlyt_anth, R.id.rlyt_my_favorite,R.id.rlyt_my_device_list})
+    @OnClick({R.id.llyt_all_orders, R.id.rlyt_shop_cart, R.id.rlyt_dri_score, R.id.rlyt_my_rank, R.id.rlyt_his_rec, R.id.rlyt_anth, R.id.rlyt_my_favorite, R.id.rlyt_my_device_list})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.llyt_all_orders:
-                startActivity(ManRecAddAct.class);
+                startActivity(AllOrderListAct.class);
                 break;
+            case R.id.rlyt_shop_cart:
+                startActivity(CartListAct.class);
             case R.id.rlyt_dri_score:
                 break;
             case R.id.rlyt_my_rank:
@@ -60,6 +64,7 @@ public class MyFrag extends BaseFragment {
                 startActivity(CertificationAct.class);
                 break;
             case R.id.rlyt_my_favorite:
+                startActivity(FavoritesListAct.class);
                 break;
             case R.id.rlyt_my_device_list:
                 startActivity(DeviceListAct.class);

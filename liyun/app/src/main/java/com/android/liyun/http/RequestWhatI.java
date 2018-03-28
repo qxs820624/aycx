@@ -24,4 +24,7 @@ public interface RequestWhatI {
     int GET_DEFAULT_ADD = 16;//获取默认地址
     int FAVORITE = 17;//添加收藏
     int GOOD_LIST = 18;//商品列表
+    int GOOD_LIST_MORE = 19;//商品列表
+    int FAVORITEGOODLIST = 20;//商品列表
+    int GETORDERLIST = 21;//获取订单列表
 }

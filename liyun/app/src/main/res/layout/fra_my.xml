@@ -162,6 +162,7 @@
                 android:layout_height="1dp" />
 
             <RelativeLayout
+                android:id="@+id/rlyt_shop_cart"
                 style="@style/comm_style"
                 android:clickable="true">
 
