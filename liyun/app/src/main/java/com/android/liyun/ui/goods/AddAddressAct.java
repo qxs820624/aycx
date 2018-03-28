@@ -15,11 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.liyun.R;
-import com.android.liyun.adapter.RecyclerAdapter;
 import com.android.liyun.base.AddBean;
 import com.android.liyun.base.BaseActivity;
 import com.android.liyun.bean.BaseBen;
-import com.android.liyun.bean.CommendBean;
 import com.android.liyun.http.Api;
 import com.android.liyun.http.ConstValues;
 import com.android.liyun.http.RequestWhatI;
@@ -34,7 +32,6 @@ import cn.addapp.pickers.entity.County;
 import cn.addapp.pickers.entity.Province;
 
 import static com.android.liyun.http.RequestWhatI.ADDRESS;
-import static com.android.liyun.http.RequestWhatI.TUIJIAN;
 
 
 /**

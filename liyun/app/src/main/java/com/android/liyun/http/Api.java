@@ -6,8 +6,6 @@ import android.os.Handler;
 
 import com.android.liyun.base.AddBean;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -427,7 +425,7 @@ public class Api {
      * @param goodsid
      * @param common
      */
-    public void addOrder(int what, String uid, String token, String addressid, String goodsid, String common) {
+    public void addOrder(int what, String uid, String token, String addressid, String goodsid, String comment) {
         String url = ConstValues.url;
         TreeMap<String, String> paramsTreeMap = new TreeMap<>();
         paramsTreeMap.put("module", "Order");
@@ -436,7 +434,8 @@ public class Api {
         paramsTreeMap.put("token", token);
         paramsTreeMap.put("addressid", addressid);
         paramsTreeMap.put("goodsid", goodsid);
-        paramsTreeMap.put("common", common);
+        paramsTreeMap.put("comment", comment);
+        paramsTreeMap.put("count", 1 + "");
         mHttpRequest.postDataString(url, what, "cartList", paramsTreeMap, false);
         mHttpTag.put("cartList", 0);
     }
@@ -480,6 +479,24 @@ public class Api {
     }
 
     /**
+     * 收藏夹列表
+     *
+     * @param what
+     * @param uid
+     * @param token
+     */
+    public void favoriteGoodList(int what, String uid, String token) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", "Favorite");
+        paramsTreeMap.put("action", "load");
+        paramsTreeMap.put("uid", uid);
+        paramsTreeMap.put("token", token);
+        mHttpRequest.postDataString(url, what, "favoriteGoodList", paramsTreeMap, false);
+        mHttpTag.put("favoriteGoodList", 0);
+    }
+
+    /**
      * 商品列表
      *
      * @param what
@@ -495,6 +512,40 @@ public class Api {
         paramsTreeMap.put("page", page);
         mHttpRequest.postDataString(url, what, "getDefaultAdd", paramsTreeMap, false);
         mHttpTag.put("getDefaultAdd", 0);
+    }
+
+    /**
+     * 获取订单列表
+     *
+     * @param what
+     * @param uid
+     * @param token
+     * @param page
+     */
+    public void getOrderList(int what, String uid, String token, String page) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", "Order");
+        paramsTreeMap.put("action", "getlist");
+        paramsTreeMap.put("uid", uid);
+        paramsTreeMap.put("token", token);
+        paramsTreeMap.put("page", page);
+        mHttpRequest.postDataString(url, what, "getOrderList", paramsTreeMap, false);
+        mHttpTag.put("getOrderList", 0);
+    }
+
+    /**
+     * 积分排名
+     *
+     * @param what
+     */
+    public void ranking(int what) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", "Order");
+        paramsTreeMap.put("action", "jifenpaiming");
+        mHttpRequest.postDataString(url, what, "ranking", paramsTreeMap, false);
+        mHttpTag.put("ranking", 0);
     }
 
 }

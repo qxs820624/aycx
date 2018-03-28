@@ -33,11 +33,11 @@ public class GoodsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private View mHeaderView;
 
-//    private OnItemClickListener mListener;
-//
-//    public void setOnItemClickListener(OnItemClickListener li) {
-//        mListener = li;
-//    }
+    private OnItemClickListener mListener;
+
+    public void setOnItemClickListener(OnItemClickListener li) {
+        mListener = li;
+    }
 
     public void setHeaderView(View headerView) {
         mHeaderView = headerView;
@@ -79,13 +79,13 @@ public class GoodsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             viewHolder.txtCommodityName.setText(goodsBean.getName());
             viewHolder.txtPrice.setText(goodsBean.getPrice() + "积分兑换");
-//            if(mListener == null) return;
-//            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    mListener.onItemClick(pos, mDatas);
-//                }
-//            });
+            if (mListener == null) return;
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onItemClick(pos, mDatas);
+                }
+            });
 
 
 //            int maxHeight = UIUtils.dp2px( 300);
@@ -135,5 +135,9 @@ public class GoodsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void setmDatas(ArrayList<GoodsListBean.GoodsBean> mDatas) {
         this.mDatas = mDatas;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position, ArrayList<GoodsListBean.GoodsBean> mDatas);
     }
 }

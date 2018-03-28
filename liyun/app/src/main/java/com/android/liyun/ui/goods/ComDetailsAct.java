@@ -2,7 +2,6 @@ package com.android.liyun.ui.goods;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
@@ -20,13 +19,12 @@ import com.android.liyun.bean.GoodsDetailBean;
 import com.android.liyun.http.Api;
 import com.android.liyun.http.ConstValues;
 import com.android.liyun.http.RequestWhatI;
+import com.android.liyun.ui.account.CartListAct;
 import com.android.liyun.utils.SPUtil;
 import com.android.liyun.utils.UIUtils;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.android.liyun.http.RequestWhatI.FAVORITE;
