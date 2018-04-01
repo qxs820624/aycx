@@ -68,7 +68,6 @@ dependencies {
     /**
      *  微信
      */
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     compile project(path: ':blelibrary')
     implementation files('libs/Msc.jar')
     compile 'com.github.bumptech.glide:glide:3.7.0'
@@ -81,5 +80,5 @@ dependencies {
 
     compile 'com.alibaba:fastjson:1.1.56.android'
     compile 'com.github.Aspsine:SwipeToLoadLayout:1.0.4'
-
+    implementation 'com.qmuiteam:qmui:1.0.6'
 }

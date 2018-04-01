@@ -42,8 +42,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableLeft="@mipmap/ic_wallet"
-                    android:drawablePadding="@dimen/margin10"
                     android:drawableRight="@mipmap/ic_next"
+                    android:drawablePadding="@dimen/margin10"
                     android:gravity="center_vertical"
                     android:text="@string/wallet"
                     android:textSize="@dimen/font_normal_14" />
@@ -150,8 +150,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableLeft="@mipmap/ic_all_orders"
-                    android:drawablePadding="@dimen/margin10"
                     android:drawableRight="@mipmap/ic_next"
+                    android:drawablePadding="@dimen/margin10"
                     android:gravity="center_vertical"
                     android:text="@string/all_order"
                     android:textSize="@dimen/font_normal_14" />
@@ -170,8 +170,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableLeft="@mipmap/ic_shopping_cart"
-                    android:drawablePadding="@dimen/margin10"
                     android:drawableRight="@mipmap/ic_next"
+                    android:drawablePadding="@dimen/margin10"
                     android:gravity="center_vertical"
                     android:text="购物车"
                     android:textSize="@dimen/font_normal_14" />
@@ -192,8 +192,8 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:drawableLeft="@mipmap/ic_driving_score"
-                    android:drawablePadding="@dimen/margin10"
                     android:drawableRight="@mipmap/ic_next"
+                    android:drawablePadding="@dimen/margin10"
                     android:gravity="center_vertical"
                     android:text="@string/driving_score"
                     android:textSize="@dimen/font_normal_14" />
@@ -212,8 +212,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableLeft="@mipmap/ic_my_ranking"
-                    android:drawablePadding="@dimen/margin10"
                     android:drawableRight="@mipmap/ic_next"
+                    android:drawablePadding="@dimen/margin10"
                     android:gravity="center_vertical"
                     android:text="@string/my_ranking"
                     android:textSize="@dimen/font_normal_14" />
@@ -232,8 +232,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableLeft="@mipmap/ic_history"
-                    android:drawablePadding="@dimen/margin10"
                     android:drawableRight="@mipmap/ic_next"
+                    android:drawablePadding="@dimen/margin10"
                     android:gravity="center_vertical"
                     android:text="@string/history"
                     android:textSize="@dimen/font_normal_14" />
@@ -252,8 +252,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableLeft="@mipmap/ic_real_name"
-                    android:drawablePadding="@dimen/margin10"
                     android:drawableRight="@mipmap/ic_next"
+                    android:drawablePadding="@dimen/margin10"
                     android:gravity="center_vertical"
                     android:text="@string/real_name"
                     android:textSize="@dimen/font_normal_14" />
@@ -272,8 +272,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableLeft="@mipmap/ic_my_favorite"
-                    android:drawablePadding="@dimen/margin10"
                     android:drawableRight="@mipmap/ic_next"
+                    android:drawablePadding="@dimen/margin10"
                     android:gravity="center_vertical"
                     android:text="@string/my_favorite"
                     android:textSize="@dimen/font_normal_14" />
@@ -294,10 +294,33 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:drawableLeft="@mipmap/ic_my_manager"
-                    android:drawablePadding="@dimen/margin10"
                     android:drawableRight="@mipmap/ic_next"
+                    android:drawablePadding="@dimen/margin10"
                     android:gravity="center_vertical"
                     android:text="@string/my_manager"
+                    android:textSize="@dimen/font_normal_14" />
+            </RelativeLayout>
+
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <RelativeLayout
+                android:id="@+id/rlyt_set"
+                style="@style/comm_style"
+                android:clickable="true">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:drawableLeft="@mipmap/ic_my_manager"
+                    android:drawableRight="@mipmap/ic_next"
+                    android:drawablePadding="@dimen/margin10"
+                    android:gravity="center_vertical"
+                    android:text="设置"
                     android:textSize="@dimen/font_normal_14" />
             </RelativeLayout>
 

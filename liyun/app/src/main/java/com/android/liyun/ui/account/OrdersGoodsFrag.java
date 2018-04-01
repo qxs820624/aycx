@@ -30,7 +30,9 @@ import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 
 import butterknife.BindView;
 
+import static com.android.liyun.http.RequestWhatI.FAVORITEGOODLIST;
 import static com.android.liyun.http.RequestWhatI.GETORDERLIST;
+import static com.android.liyun.http.RequestWhatI.GETORDERLIST_MORE;
 
 
 /**
@@ -47,6 +49,9 @@ public class OrdersGoodsFrag extends BaseFragment implements OnRefreshListener, 
     private String uid;
     private String token;
     private OrdersListAdapter ordersListAdapter;
+    private OrdersGoodsBean goodsListBean;
+    private String uid1;
+    private String token1;
 
     @Override
     protected int getLayoutResource() {
@@ -61,10 +66,9 @@ public class OrdersGoodsFrag extends BaseFragment implements OnRefreshListener, 
     @Override
     protected void initView() {
         mApi = new Api(handler, UIUtils.getContext());
-        String uid = SPUtil.getString(UIUtils.getContext(), ConstValues.UID, "");
-        String token = SPUtil.getString(UIUtils.getContext(), ConstValues.TOKEN, "");
+        uid = SPUtil.getString(UIUtils.getContext(), ConstValues.UID, "");
+        token = SPUtil.getString(UIUtils.getContext(), ConstValues.TOKEN, "");
         mApi.getOrderList(GETORDERLIST, uid, token, "1");
-
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(UIUtils.getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -85,12 +89,21 @@ public class OrdersGoodsFrag extends BaseFragment implements OnRefreshListener, 
 
     @Override
     public void onLoadMore() {
+        mApi.getOrderList(GETORDERLIST_MORE, uid, token, ++pageNo + "");
 
+        swipeToLoadLayout.setLoadingMore(false);
     }
 
     @Override
     public void onRefresh() {
-
+        swipeToLoadLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                pageNo = 1;
+                mApi.getOrderList(GETORDERLIST, uid, token, "1");
+                swipeToLoadLayout.setRefreshing(false);
+            }
+        }, 1000);
     }
 
     private Handler handler = new Handler() {
@@ -100,10 +113,20 @@ public class OrdersGoodsFrag extends BaseFragment implements OnRefreshListener, 
             if (msg.arg1 != -1) {
                 switch (msg.what) {
                     case GETORDERLIST:
-                        OrdersGoodsBean baseBen = mGson.fromJson(msg.obj.toString(), OrdersGoodsBean.class);
-                        ordersListAdapter = new OrdersListAdapter();
-                        mRecyclerView.setAdapter(ordersListAdapter);
-                        ordersListAdapter.addDatas(baseBen.getOrders());
+                        goodsListBean = mGson.fromJson(msg.obj.toString(), OrdersGoodsBean.class);
+                        if (null != goodsListBean) {
+                            ordersListAdapter = new OrdersListAdapter();
+                            mRecyclerView.setAdapter(ordersListAdapter);
+                            ordersListAdapter.addDatas(goodsListBean.getOrders());
+                        }
+
+                        break;
+                    case GETORDERLIST_MORE:
+                        goodsListBean = mGson.fromJson(msg.obj.toString(), OrdersGoodsBean.class);
+                        if (null != goodsListBean) {
+                            ordersListAdapter.addDatas(goodsListBean.getOrders());
+                            ordersListAdapter.notifyDataSetChanged();
+                        }
                         break;
                 }
             }

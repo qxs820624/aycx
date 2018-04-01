@@ -1,4 +1,4 @@
-package com.android.liyun.ui.goods;
+package com.android.liyun.ui.account;
 
 import android.content.Intent;
 import android.graphics.Color;

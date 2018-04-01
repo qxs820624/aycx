@@ -56,9 +56,10 @@
         <activity android:name=".ui.manager.ManagementAct" />
         <activity android:name=".ui.goods.GoodsListAct" />
         <activity android:name=".ui.manager.DeviceListAct" />
-        <activity android:name=".ui.goods.FavoritesListAct" />
+        <activity android:name=".ui.account.FavoritesListAct" />
         <activity android:name=".ui.account.AllOrderListAct" />
-        <activity android:name=".ui.account.RankingAct"></activity>
+        <activity android:name=".ui.account.RankingAct" />
+        <activity android:name=".ui.account.SetAct"></activity>
     </application>
 
 </manifest>

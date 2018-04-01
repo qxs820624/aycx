@@ -60,6 +60,17 @@ public class CartListBean {
         private String image;
         private String model;
 
+        private boolean isSelect;
+
+
+        public boolean isSelect() {
+            return isSelect;
+        }
+
+        public void setSelect(boolean select) {
+            isSelect = select;
+        }
+
         public String getGoods_id() {
             return goods_id;
         }

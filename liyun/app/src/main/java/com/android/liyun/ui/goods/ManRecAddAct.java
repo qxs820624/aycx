@@ -116,7 +116,6 @@ public class ManRecAddAct extends BaseActivity implements AdapterView.OnItemClic
                                             break;
                                         case R.id.txt_edit://编辑收货地址
                                             position = (int) view.getTag();
-
                                             Intent intent = new Intent();
                                             startActivity(ModAddAct.class);
                                             Toast.makeText(UIUtils.getContext(), position + "", Toast.LENGTH_SHORT).show();

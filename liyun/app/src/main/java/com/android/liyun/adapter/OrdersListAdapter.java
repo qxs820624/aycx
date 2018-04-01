@@ -29,6 +29,7 @@ public class OrdersListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public static final int TYPE_HEADER = 0;
     public static final int TYPE_NORMAL = 1;
 
+
     private ArrayList<OrdersGoodsBean.OrdersBean> mDatas = new ArrayList<>();
 
     private View mHeaderView;
@@ -77,7 +78,14 @@ public class OrdersListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof ViewHolder) {
             ViewHolder viewHolder = (ViewHolder) holder;
             viewHolder.txtOrderNumAlias.setText(ordersBean.getOrder_num_alias());
-//            viewHolder.txtCommodityName.setText(goodsBean.getName());
+
+            String name = ordersBean.getGood().get(0).getName();
+            viewHolder.txtName.setText(ordersBean.getGood().get(0).getName());
+
+            String quantity = ordersBean.getGood().get(0).getQuantity();
+            String total = ordersBean.getGood().get(0).getTotal();
+            viewHolder.txtTotal.setText("共" + quantity + "件商品" + ",合计" + total + "积分");
+//            viewHolder.txtCommodityName.seatText(goodsBean.getName());
 //            viewHolder.txtPrice.setText(goodsBean.getPrice() + "积分兑换");
 //            if (mListener == null) return;
 //            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -93,13 +101,13 @@ public class OrdersListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 //            int height = (int) ((float) view.getWidth()/drawable.getMinimumWidth() * drawable.getMinimumHeight());
 //            if (height > maxHeight) height = maxHeight;
 //            view.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, height));
-//            if (!TextUtils.isEmpty(ordersBean.getGood().get(0).getImage())) {
-//                Glide
-//                        .with(UIUtils.getContext())
-//                        .load(ordersBean.getGood().get(0).getImage())
-//                        .crossFade()
-//                        .into((viewHolder.ivGoods));
-//            }
+            if (!TextUtils.isEmpty(ordersBean.getGood().get(0).getImage())) {
+                Glide
+                        .with(UIUtils.getContext())
+                        .load(ordersBean.getGood().get(0).getImage())
+                        .crossFade()
+                        .into((viewHolder.ivGoods));
+            }
         }
 
 
@@ -122,6 +130,12 @@ public class OrdersListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ImageView ivGoods;
         @BindView(R.id.txt_confirm_payment)
         TextView txtConfirmPayment;
+        @BindView(R.id.txt_name)
+        TextView txtName;
+        @BindView(R.id.txt_total)
+        TextView txtTotal;
+        @BindView(R.id.txt_quantity)
+        TextView txtQuantity;
 
         ViewHolder(View view) {
             super(view);
