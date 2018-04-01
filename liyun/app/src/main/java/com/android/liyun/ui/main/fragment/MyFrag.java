@@ -8,7 +8,8 @@ import com.android.liyun.base.BaseFragment;
 import com.android.liyun.ui.account.CertificationAct;
 import com.android.liyun.ui.account.AllOrderListAct;
 import com.android.liyun.ui.account.CartListAct;
-import com.android.liyun.ui.goods.FavoritesListAct;
+import com.android.liyun.ui.account.FavoritesListAct;
+import com.android.liyun.ui.account.SetAct;
 import com.android.liyun.ui.manager.DeviceListAct;
 
 import butterknife.BindView;
@@ -46,7 +47,10 @@ public class MyFrag extends BaseFragment {
     }
 
 
-    @OnClick({R.id.llyt_all_orders, R.id.rlyt_shop_cart, R.id.rlyt_dri_score, R.id.rlyt_my_rank, R.id.rlyt_his_rec, R.id.rlyt_anth, R.id.rlyt_my_favorite, R.id.rlyt_my_device_list})
+    @OnClick({R.id.llyt_all_orders, R.id.rlyt_shop_cart, R.id.rlyt_dri_score, R.id.rlyt_my_rank, R.id.rlyt_his_rec, R.id.rlyt_anth,
+            R.id.rlyt_my_favorite,
+            R.id.rlyt_set,
+            R.id.rlyt_my_device_list})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.llyt_all_orders:
@@ -68,6 +72,9 @@ public class MyFrag extends BaseFragment {
                 break;
             case R.id.rlyt_my_device_list:
                 startActivity(DeviceListAct.class);
+                break;
+            case R.id.rlyt_set:
+                startActivity(SetAct.class);
                 break;
         }
     }

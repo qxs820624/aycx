@@ -71,7 +71,14 @@
     <string name="memory_management">内存管理</string>
     <string name="air_upgrade">空中升级</string>
 
+    <string name="shoppingcat">购物车</string>
+    <string name="actionBar_edit">编辑</string>
+    <string name="all">全选</string>
+    <string name="order_total">合计 :</string>
+
     <string name="spd" />
     <string name="original_y" />
     <string name="isUp" />
+    <string name="acc_info">账号信息</string>
+
 </resources>

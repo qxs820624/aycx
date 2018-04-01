@@ -90,7 +90,6 @@ public class SitesAdapter extends BaseAdapter implements View.OnClickListener {
         holder.txtDelAdd.setTag(position);
         holder.txtEdit.setTag(position);
         holder.checkBox.setTag(position);
-       // holder.checkBox.setChecked(isDefault.equals(ConstValues.ONE));
         //默认地址
         if (isDefault.equals("1")) {
             holder.checkBox.setChecked(true);

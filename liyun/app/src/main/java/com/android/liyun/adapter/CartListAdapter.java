@@ -20,4 +20,13 @@ public class CartListAdapter extends SuperBaseAdapter<CartListBean.GoodsBean> {
     protected BaseHolder<CartListBean.GoodsBean> getItemHolder(int position) {
         return new CartListHolder();
     }
+
+
+    public List<CartListBean.GoodsBean> getDatas() {
+        return datas;
+    }
+
+    public void setDatas(List<CartListBean.GoodsBean> datas) {
+        this.datas = datas;
+    }
 }

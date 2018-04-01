@@ -9,11 +9,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -28,11 +32,16 @@ import com.android.liyun.base.BaseActivity;
 import com.android.liyun.base.ConnectStatusManager;
 import com.android.liyun.base.LiyunApp;
 import com.android.liyun.bean.Device;
+import com.android.liyun.http.ConstValues;
+import com.android.liyun.http.RequestWhatI;
 import com.android.liyun.listener.BleScanCallback;
 import com.android.liyun.service.BleService;
+import com.android.liyun.ui.goods.AddAddressAct;
+import com.android.liyun.utils.SPUtil;
 import com.android.liyun.utils.SharedPreferencesUtil;
 import com.android.liyun.utils.TimeStampUtil;
 import com.android.liyun.utils.ToastUtils;
+import com.android.liyun.utils.UIUtils;
 import com.liyun.blelibrary.BluetoothLeDevice;
 
 import java.util.ArrayList;
@@ -46,7 +55,7 @@ import butterknife.OnClick;
 
 /**
  * @author hzx
- *         created at 2018/3/20 12:15
+ * created at 2018/3/20 12:15
  */
 public class ScanActivity extends BaseActivity implements ConnectStatusManager.StatusChangeCallback {
     @BindView(R.id.lv_device)
@@ -76,7 +85,24 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
 
     @Override
     public void initPresenter() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
 
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+        toolbar.setTitle("扫描设备");
+        toolbar.setTitleTextColor(Color.WHITE);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ConnectStatusManager.setStatusChangeCallback(ScanActivity.this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.add_menu, menu);
+        return true;
     }
 
     @Override
@@ -84,6 +110,26 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
         initview();
         initListview();
         registerBroadrecevicer();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.toolbar_add:
+                if (!isScanning) {
+                    scanDevice();
+                } else {
+                    mSennoSmartBleService.stopScanning();
+                }
+                break;
+            default:
+                break;
+        }
+        return true;
+
     }
 
     private void registerBroadrecevicer() {
@@ -238,12 +284,6 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
     @Override
     public void changeStatus(boolean isConnected) {
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        ConnectStatusManager.setStatusChangeCallback(ScanActivity.this);
     }
 
     @Override
