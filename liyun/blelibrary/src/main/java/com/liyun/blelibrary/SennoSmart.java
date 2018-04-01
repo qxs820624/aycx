@@ -514,6 +514,7 @@ public class SennoSmart extends BluetoothLeDevice {
         byte crc =  buffer.get();
         Log.d(TAG, "date=" + date + ",time=" + time + ",acc_x=" + acc_x + ",accy=" + acc_y + ",accz=" + acc_z + ",angx=" + ang_x + ",angy=" + ang_y + "," +
                 "angz=" + ang_z + ",action=" + action + ",crc=" + crc);
+        mContext.sendBroadcast(new Intent(ACTION_AUDIO_SPEED).putExtra(EXTRA_DATA, String.valueOf(action)));
         if (mSmartPedometerDataCallback != null) {
             mSmartPedometerDataCallback.getActionRecordData(data,action);
         }

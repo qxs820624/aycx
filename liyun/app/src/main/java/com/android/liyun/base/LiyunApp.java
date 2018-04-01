@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.android.liyun.service.BleService;
+import com.android.liyun.utils.ToastUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -101,6 +102,7 @@ public class LiyunApp extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        ToastUtils.init(this);
         initOkGo();
         initRealm();
         // 上下文

@@ -54,7 +54,7 @@ public abstract class BluetoothLeDevice {
     public static final String EXTRA_NAME                 = "com.sennotech.kisscat.ble.BluetoothLeDevice.EXTRA_NAME";
     public static final String EXTRA_DATA                 = "com.sennotech.kisscat.ble.BluetoothLeDevice.EXTRA_DATA";
     // endregion
-
+    public static final String ACTION_AUDIO_SPEED        = "BluetoothLeDevice.AUDIO_SPEED";
     protected static final UUID UUID_CCC = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
 
     private static final long DELAY_OF_CONNECT_TIMEOUT = 15_000;

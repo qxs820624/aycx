@@ -5,74 +5,187 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
+    <include layout="@layout/toolbar" />
 
-  <LinearLayout
-      android:layout_width="wrap_content"
-      android:gravity="center_vertical"
-      android:layout_height="30dp">
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textSize="15dp"
-          android:text="ModelNumber:"/>
-      <TextView
-          android:id="@+id/tv_ModelNumber"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textSize="15dp"
-          android:layout_marginLeft="10dp"
-        />
-  </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/view_line"/>
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_height="30dp">
-        <TextView
-            android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            style="@style/comm_style"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:text="FirmwareRevision:"/>
-        <TextView
-            android:id="@+id/tv_FirmwareRevision"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:layout_marginLeft="10dp"
+            android:background="@null">
+
+            <TextView
+                android:id="@+id/tv_device"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin10"
+                android:text="产品名称："
+                android:textColor="@color/black" />
+            <TextView
+                android:layout_toRightOf="@id/tv_device"
+                android:id="@+id/tv_deviceNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin10"
+                android:layout_marginLeft="15dp"
+                android:text=""
+                android:textColor="@color/black" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="修改"
+                    android:layout_alignParentRight="true"
+                    android:paddingTop="@dimen/margin10"
+                    android:drawablePadding="@dimen/margin10"
+                    android:drawableRight="@mipmap/ic_next"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/bule" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/view_line"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_height="30dp">
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            style="@style/comm_style"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:text="HardwareRevision:"/>
-        <TextView
-            android:id="@+id/tv_HardwareRevision"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:layout_marginLeft="10dp"
+            android:background="@null">
+
+            <TextView
+                android:id="@+id/tv_factory_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin10"
+                android:text="出厂编号："
+                android:textColor="@color/black" />
+            <TextView
+                android:layout_toRightOf="@id/tv_factory_number"
+                android:id="@+id/tv_factory_numberNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin10"
+                android:layout_marginLeft="15dp"
+                android:text=""
+                android:textColor="@color/black" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="修改"
+                    android:layout_alignParentRight="true"
+                    android:paddingTop="@dimen/margin10"
+                    android:drawablePadding="@dimen/margin10"
+                    android:drawableRight="@mipmap/ic_next"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/bule" />
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/view_line"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_height="30dp">
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            style="@style/comm_style"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:text="SoftwareRevision:"/>
-        <TextView
-            android:id="@+id/tv_SoftwareRevision"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:layout_marginLeft="10dp"
+            android:background="@null">
+
+            <TextView
+                android:id="@+id/tv_productDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin10"
+                android:text="生产日期："
+                android:textColor="@color/black" />
+            <TextView
+                android:layout_toRightOf="@id/tv_productDate"
+                android:id="@+id/tv_productDateNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin10"
+                android:layout_marginLeft="15dp"
+                android:text=""
+                android:textColor="@color/black" />
+
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/view_line"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             />
+        <RelativeLayout
+            style="@style/comm_style"
+            android:layout_height="wrap_content"
+            android:background="@null">
+
+            <TextView
+                android:id="@+id/tv_hardware"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin10"
+                android:text="硬件编号："
+                android:textColor="@color/black" />
+            <TextView
+                android:layout_toRightOf="@id/tv_hardware"
+                android:id="@+id/tv_hardwareNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin10"
+                android:layout_marginLeft="15dp"
+                android:text=""
+                android:textColor="@color/black" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/view_line"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            />
+        <RelativeLayout
+            style="@style/comm_style"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@null">
+
+            <TextView
+                android:id="@+id/tv_software"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin10"
+                android:text="软件编号："
+                android:textColor="@color/black" />
+            <TextView
+                android:layout_toRightOf="@id/tv_software"
+                android:id="@+id/tv_softwareNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin10"
+                android:layout_marginLeft="15dp"
+                android:text=""
+                android:textColor="@color/black" />
+
+        </RelativeLayout>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -100,6 +213,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15dp"
+            android:visibility="gone"
             android:text="fff6中读出来原始数据"/>
 
     </LinearLayout>
@@ -108,6 +222,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15dp"
+        android:visibility="gone"
         android:layout_marginLeft="10dp"
         />
     <LinearLayout
@@ -118,12 +233,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15dp"
+            android:visibility="gone"
             android:text="fff6中解析出来的行为数据action:"/>
         <TextView
             android:id="@+id/tv_fff6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15dp"
+            android:visibility="gone"
             android:layout_marginLeft="10dp"
             />
     </LinearLayout>
