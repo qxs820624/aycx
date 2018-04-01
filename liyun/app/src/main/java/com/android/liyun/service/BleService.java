@@ -20,7 +20,10 @@ import com.android.liyun.Constant;
 import com.android.liyun.base.ConnectStatusManager;
 import com.android.liyun.bean.ConnectionTimeBean;
 import com.android.liyun.listener.BleScanCallback;
+import com.android.liyun.utils.SharedPreferencesUtil;
 import com.android.liyun.utils.TimeStampUtil;
+import com.android.liyun.utils.UIUtils;
+import com.iflytek.speech.SynthesizerPlayer;
 import com.liyun.blelibrary.BluetoothLeDevice;
 import com.liyun.blelibrary.SennoSmart;
 import com.liyun.blelibrary.listener.SmartPedometerDataCallback;
@@ -38,7 +41,7 @@ import io.realm.Sort;
  * @create 2018-03-18 14:24.
  */
 
-public class BleService extends Service {
+public class BleService extends Service{
 
     private static final String TAG = "BleService";
 
@@ -54,7 +57,7 @@ public class BleService extends Service {
     private BluetoothAdapter mBluetoothAdapter;
 
     private final LocalLeScanCallback mLocalLeScanCallback = new LocalLeScanCallback();
-
+    private static final String APPID = "appid=519328ab";
     //自定义蓝牙扫描回调接口
     private BleScanCallback mBleScanCallback;
 
@@ -63,12 +66,14 @@ public class BleService extends Service {
     private boolean mScanning = false;
     private BleServiceReceiver receiver;
     private Realm mRealm;
+    private String current = "";
+    private long timeMillis;
+
     @Override
     public IBinder onBind(Intent intent) {
         Log.d(TAG, "onBind() called with: " + "intent = [" + intent + "]");
         return new LocalBinder(this);
     }
-
     public static class LocalBinder extends Binder {
 
         private final WeakReference<BleService> mmHost;
@@ -148,9 +153,18 @@ public class BleService extends Service {
             if (mBleScanCallback != null) {
                 mBleScanCallback.discoverDevice(bluetoothDevice, rssi);
             }
-            //找到测试目标设备
-            if (mBleScanCallback != null) {
-                mBleScanCallback.discoverBindDevice(bluetoothDevice);
+
+
+            String name = SharedPreferencesUtil.loadDeviceParams(BleService.this, SharedPreferencesUtil.KEY_DEVICE_NAME);
+            String sn = SharedPreferencesUtil.loadDeviceParams(BleService.this, SharedPreferencesUtil.KEY_DEVICE_SERIAL_NUMBER);
+
+            if (name != null && sn != null) {
+                //找到测试目标设备
+                if (name.equals(bluetoothDevice.getName()) && sn.equals(bluetoothDevice.getAddress())) {
+                    if (mBleScanCallback != null) {
+                        mBleScanCallback.discoverBindDevice(bluetoothDevice);
+                    }
+                }
             }
         }
     }
@@ -443,6 +457,7 @@ public class BleService extends Service {
         receiver = new BleServiceReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothLeDevice.ACTION_DISCONNECTED);
+        filter.addAction(BluetoothLeDevice.ACTION_AUDIO_SPEED);
         registerReceiver(receiver, filter);
     }
 
@@ -453,8 +468,115 @@ public class BleService extends Service {
             String action = intent.getAction();
             if (action.equals(BluetoothLeDevice.ACTION_DISCONNECTED)) {
                 onDeviceDisconnected();
+            }else if (action.equals(BluetoothLeDevice.ACTION_AUDIO_SPEED)) {
+                String mAction = intent.getStringExtra(BluetoothLeDevice.EXTRA_DATA);
+                byte b = Byte.parseByte(mAction);
+                speedVoice(b);
             }
         }
+    }
+
+    private void speedVoice(byte action) {
+        byte[] bytes = new byte[1];
+        bytes[0] = action;
+        final String s = bytesToHexString(bytes);
+
+        if (s.equals("00")) {
+
+        } else {
+            if (s.equals(current)) {
+                return;
+            } else {
+                Log.e("TAG", "进来s======"+s);
+               /* mApi.driveVideo(DRIVEVIDEL, SPUtil.getString(UIUtils.getContext(), ConstValues.UID, ""),
+                        SPUtil.getString(UIUtils.getContext(), ConstValues.TOKEN, ""), Arrays.toString(data));*/
+                System.out.println(s);
+                switch (s) {
+                    case "a1":
+                        current = "a1";
+                        timeMillis = System.currentTimeMillis();
+                        sayCar("车头检测中，请等待");
+                        break;
+                    case "a2":
+                        current = "a2";
+                        sayCar("车头检测中，请直线行驶");
+                        break;
+                    case "00"://正常
+                        sayCar("车头检测中，请等待");
+                        break;
+                    case "a3":
+                        current = "a3";
+                        sayCar("车头检测结束，请正常行驶");
+                        break;
+                    case "02":
+                        current = "02";
+                        sayCar("检测到加速");
+                        break;
+                    case "12":
+                        current = "12";
+                        sayCar("检测到急加速");
+                        break;
+                    case "03":
+                        current = "03";
+                        sayCar("检测到刹车");
+                        break;
+                    case "13":
+                        current = "13";
+                        sayCar("检测到急刹车");
+                        break;
+                    case "04":
+                        current = "04";
+                        sayCar("检测到左转");
+                        break;
+                    case "14":
+                        current = "14";
+                        sayCar("检测到急速左转");
+                        break;
+                    case "05":
+                        current = "05";
+                        sayCar("检测到右转");
+                        break;
+                    case "15":
+                        current = "15";
+                        sayCar("检测到急速右转");
+                        break;
+                    case "07":
+                        current = "07";
+                        sayCar("检测到左变道");
+                        break;
+                    case "08":
+                        current = "08";
+                        sayCar("检测到右变道");
+                        break;
+                    case "09":
+                        current = "09";
+                        sayCar("检测到掉头");
+                        break;
+                }
+            }
+        }
+    }
+    public static String bytesToHexString(byte[] src) {
+        StringBuilder stringBuilder = new StringBuilder("");
+        if (src == null || src.length <= 0) {
+            return null;
+        }
+        for (int i = 0; i < src.length; i++) {
+            int v = src[i] & 0xFF;
+            String hv = Integer.toHexString(v);
+            if (hv.length() < 2) {
+                stringBuilder.append(0);
+            }
+            stringBuilder.append(hv);
+        }
+        return stringBuilder.toString();
+    }
+    private void sayCar(String action) {
+        SynthesizerPlayer player = SynthesizerPlayer.createSynthesizerPlayer(UIUtils.getContext(), APPID);
+        //设置语音朗读者，可以根据需要设置男女朗读，具体请看api文档和官方论坛
+        player.setVoiceName("vivixiaoyan");//在此设置语音播报的人选例如：vivixiaoyan、vivixiaomei、vivixiaoqi
+        player.playText(action, "ent=vivi21,bft=5", null);
+
     }
 
     //  @Receiver(actions = BluetoothLeDevice.ACTION_DISCONNECTED)
@@ -465,20 +587,23 @@ public class BleService extends Service {
         double energyNum = TimeStampUtil.calculateEnergyNum(Constant.START_CONNECT_TIME, disconnectTime);
         DecimalFormat df = new DecimalFormat("#0.00");
         String energyNumFormat = df.format(energyNum);
-        saveData(false,Double.parseDouble(energyNumFormat),disconnectTime);
+        saveData(false, Double.parseDouble(energyNumFormat), disconnectTime);
         Log.e("time", "disconnecttime=" + disconnectTime + ",energyNum=" + energyNum + "--energyNumFormat=" + Double.parseDouble(energyNumFormat));
     }
+
     private void saveData(final boolean isUpload, final double num, final String disconnectTime) {
         mRealm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 //TODO  disconnectTime这里把断开时候时间作为创建时间，也可以把开始时间作为
-                ConnectionTimeBean cc = realm.createObject(ConnectionTimeBean.class,generateNewPrimaryKey());
+                ConnectionTimeBean cc = realm.createObject(ConnectionTimeBean.class, generateNewPrimaryKey());
                 cc.setCreateTime(disconnectTime); //这里把断开链接
                 cc.setUpload(isUpload);//TODO 没有上传服务器的 当你点击水滴就上传服务器，上传成功就更改为true
                 cc.setEnergyNum(num);  //TODO 暂时算出来的水滴数量
-            }});
+            }
+        });
     }
+
     //获取最大的PrimaryKey并加一
     private long generateNewPrimaryKey() {
         long primaryKey = 0;

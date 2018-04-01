@@ -30,7 +30,9 @@ import com.android.liyun.base.LiyunApp;
 import com.android.liyun.bean.Device;
 import com.android.liyun.listener.BleScanCallback;
 import com.android.liyun.service.BleService;
+import com.android.liyun.utils.SharedPreferencesUtil;
 import com.android.liyun.utils.TimeStampUtil;
+import com.android.liyun.utils.ToastUtils;
 import com.liyun.blelibrary.BluetoothLeDevice;
 
 import java.util.ArrayList;
@@ -100,17 +102,22 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
         lvDevice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Device device = devices.get(position);
+                final Device device = devicesList.get(position);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mSennoSmartBleService.stopScanning();
+                        boolean b = SharedPreferencesUtil.saveDeviceParams(ScanActivity.this, device.getName(), device.getAddress());
+                        if (b) {
+                            ToastUtils.showToast("添加成功");
+                            finish();
+                        }
+                    /*    mSennoSmartBleService.stopScanning();
                         mSennoSmartBleService.connectDevice(device.getBluetoothDevice());
                         isConnecting = true;
                         progressDialog = new ProgressDialog(ScanActivity.this);
                         progressDialog.setCancelable(false);
                         progressDialog.setMessage("正在连接中...");
-                        progressDialog.show();
+                        progressDialog.show();*/
                     }
                 });
 
@@ -317,7 +324,7 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
             @Override
             public void run() {
                 isConnecting = false;   //改变状态为非连接状态
-                startActivity(new Intent(ScanActivity.this, ShowDataActivity.class));
+                startActivity(new Intent(ScanActivity.this, DeviceInfoActivity.class));
 //                mSennoSmartBleService.synchronizeTimeStamp();
 //              //  mSennoSmartBleService.setSennoSmartPedometerDataCallback(mSennoSmartPedometerDataCallback);
 //                mSennoSmartBleService.notifyPedometerStatus(true);

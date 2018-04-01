@@ -36,7 +36,13 @@
         <activity android:name=".ui.login.ForgetAct" />
         <activity android:name=".ui.dev.activity.H5Act" />
         <activity android:name=".ui.main.activity.ScanActivity" />
-        <activity android:name=".ui.main.activity.ShowDataActivity" />
+        <activity android:name=".ui.main.activity.DeviceInfoActivity" >
+           <!-- <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
 
         <service android:name=".service.BleService" />
 

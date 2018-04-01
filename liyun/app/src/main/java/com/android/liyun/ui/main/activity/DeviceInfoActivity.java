@@ -4,8 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,14 +19,12 @@ import com.android.liyun.bean.BaseBen;
 import com.android.liyun.http.Api;
 import com.android.liyun.http.ConstValues;
 import com.android.liyun.service.BleService;
-import com.android.liyun.utils.SPUtil;
 import com.android.liyun.utils.UIUtils;
 import com.iflytek.speech.SynthesizerPlayer;
 import com.liyun.blelibrary.BluetoothLeDevice;
 import com.liyun.blelibrary.listener.SmartPedometerDataCallback;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,19 +35,23 @@ import static com.android.liyun.http.RequestWhatI.DRIVEVIDEL;
  * @author hzx
  *         created at 2018/3/20 12:15
  */
-public class ShowDataActivity extends BaseActivity implements SmartPedometerDataCallback {
-    @BindView(R.id.tv_ModelNumber)
-    TextView tvModelNumber;
-    @BindView(R.id.tv_FirmwareRevision)
-    TextView tvFirmwareRevision;
-    @BindView(R.id.tv_HardwareRevision)
-    TextView tvHardwareRevision;
-    @BindView(R.id.tv_SoftwareRevision)
-    TextView tvSoftwareRevision;
+public class DeviceInfoActivity extends BaseActivity implements SmartPedometerDataCallback {
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.tv_fff6)
     TextView tv_fff6;
     @BindView(R.id.tv_fff6data)
     TextView tv_fff6data;
+    @BindView(R.id.tv_deviceNo)
+    TextView tv_deviceNo;
+    @BindView(R.id.tv_factory_numberNo)
+    TextView tv_factory_numberNo;
+    @BindView(R.id.tv_productDateNo)
+    TextView tv_productDateNo;
+    @BindView(R.id.tv_hardwareNo)
+    TextView tv_hardwareNo;
+    @BindView(R.id.tv_softwareNo)
+    TextView tv_softwareNo;
     private BleService mSennoSmartBleService;
     private LiyunApp mLiyunApp;
     private BroadcastReceiver receiver;
@@ -63,6 +68,8 @@ public class ShowDataActivity extends BaseActivity implements SmartPedometerData
 
     @Override
     public void initPresenter() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         mApi = new Api(handler, this);
     }
 
@@ -93,6 +100,22 @@ public class ShowDataActivity extends BaseActivity implements SmartPedometerData
         filter.addAction(BluetoothLeDevice.ACTION_DEVICE_HARD_VERSION);
         registerReceiver(receiver, filter);
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        toolbar.setTitle("设备信息");
+        toolbar.setTitleTextColor(Color.WHITE);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
     @Override
     protected void onDestroy() {
@@ -115,7 +138,7 @@ public class ShowDataActivity extends BaseActivity implements SmartPedometerData
 
     @Override
     public void getActionRecordData(final byte[] data, final byte action) {
-        byte[] bytes = new byte[1];
+/*        byte[] bytes = new byte[1];
         bytes[0] = action;
         final String s = bytesToHexString(bytes);
         if (s.equals("00")) {
@@ -212,7 +235,7 @@ public class ShowDataActivity extends BaseActivity implements SmartPedometerData
 
 
             }
-        });
+        });*/
 
 //        try {
 //            Thread.sleep(2000);
@@ -259,16 +282,16 @@ public class ShowDataActivity extends BaseActivity implements SmartPedometerData
             String action = intent.getAction();
             if (action.equals(BluetoothLeDevice.ACTION_DEVICE_VERSION)) {
                 String firmwareRevision = intent.getStringExtra(BluetoothLeDevice.EXTRA_DATA);
-                tvFirmwareRevision.setText(firmwareRevision);
+              //  tvFirmwareRevision.setText(firmwareRevision);
             } else if (action.equals(BluetoothLeDevice.ACTION_DEVICE_MODEL_NAME)) {
                 String ModelName = intent.getStringExtra(BluetoothLeDevice.EXTRA_DATA);
-                tvModelNumber.setText(ModelName);
+                tv_deviceNo.setText(ModelName);
             } else if (action.equals(BluetoothLeDevice.ACTION_DEVICE_SOFT_VERSION)) {
                 String softVersion = intent.getStringExtra(BluetoothLeDevice.EXTRA_DATA);
-                tvSoftwareRevision.setText(softVersion);
+                tv_softwareNo.setText(softVersion);
             } else if (action.equals(BluetoothLeDevice.ACTION_DEVICE_HARD_VERSION)) {
                 String hardVersion = intent.getStringExtra(BluetoothLeDevice.EXTRA_DATA);
-                tvHardwareRevision.setText(hardVersion);
+                tv_hardwareNo.setText(hardVersion);
             }
         }
     }
