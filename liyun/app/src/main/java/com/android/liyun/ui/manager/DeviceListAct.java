@@ -79,15 +79,27 @@ public class DeviceListAct extends BaseActivity implements ConnectStatusManager.
     }
 
     private void initDevice() {
-        ArrayList<Device> devicesList = new ArrayList<>();
-        Device Device = new Device();
-        Device.setName(SharedPreferencesUtil.loadDeviceParams(this,SharedPreferencesUtil.KEY_DEVICE_NAME));
-        Device.setAddress(SharedPreferencesUtil.loadDeviceParams(this,SharedPreferencesUtil.KEY_DEVICE_SERIAL_NUMBER));
-        devicesList.add(Device);
+      final   ArrayList<Device> devicesList = new ArrayList<>();
+        Device device = new Device();
+        String name = SharedPreferencesUtil.loadDeviceParams(this, SharedPreferencesUtil.KEY_DEVICE_NAME);
+        String address = SharedPreferencesUtil.loadDeviceParams(this, SharedPreferencesUtil.KEY_DEVICE_SERIAL_NUMBER);
+        if(name!=null&&address!=null){
+            device.setName(name);
+            device.setAddress(address);
+            devicesList.add(device);
+        }
+
         deviceListAdapter = new DeviceListAdapter(UIUtils.getContext(), devicesList, R.layout.item_add_device, new DeviceListAdapter.CallBack() {
             @Override
             public void click(View view) {
-                Log.e("TAG", "DDD----------");
+                switch (view.getId()) {
+                    case R.id.txt_del:
+
+                        SharedPreferencesUtil.saveDeviceParams(DeviceListAct.this, null, null);
+                        devicesList.clear();
+                        deviceListAdapter.notifyDataSetChanged();
+                        break;
+                }
             }
         });
         listview.setAdapter(deviceListAdapter);

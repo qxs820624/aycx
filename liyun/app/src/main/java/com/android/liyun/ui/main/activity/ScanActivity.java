@@ -32,16 +32,11 @@ import com.android.liyun.base.BaseActivity;
 import com.android.liyun.base.ConnectStatusManager;
 import com.android.liyun.base.LiyunApp;
 import com.android.liyun.bean.Device;
-import com.android.liyun.http.ConstValues;
-import com.android.liyun.http.RequestWhatI;
 import com.android.liyun.listener.BleScanCallback;
 import com.android.liyun.service.BleService;
-import com.android.liyun.ui.goods.AddAddressAct;
-import com.android.liyun.utils.SPUtil;
 import com.android.liyun.utils.SharedPreferencesUtil;
 import com.android.liyun.utils.TimeStampUtil;
 import com.android.liyun.utils.ToastUtils;
-import com.android.liyun.utils.UIUtils;
 import com.liyun.blelibrary.BluetoothLeDevice;
 
 import java.util.ArrayList;
@@ -91,7 +86,6 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
 
     @Override
     protected void onResume() {
-
         super.onResume();
         toolbar.setTitle("扫描设备");
         toolbar.setTitleTextColor(Color.WHITE);
@@ -155,6 +149,8 @@ public class ScanActivity extends BaseActivity implements ConnectStatusManager.S
                         boolean b = SharedPreferencesUtil.saveDeviceParams(ScanActivity.this, device.getName(), device.getAddress());
                         if (b) {
                             ToastUtils.showToast("添加成功");
+                            Intent intent = getIntent();
+                            setResult(200,intent);
                             finish();
                         }
                     /*    mSennoSmartBleService.stopScanning();
