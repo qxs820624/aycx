@@ -62,6 +62,7 @@ public class MallFrag extends BaseFragment {
         mApi = new Api(handler, UIUtils.getContext());
         init();
         initData();
+        mApi.tuiJian(TUIJIAN);
     }
 
     private void init() {
@@ -80,7 +81,6 @@ public class MallFrag extends BaseFragment {
         toolbar.setTitle("");
         txtTitle.setText("商城");
         toolbar.setTitleTextColor(Color.WHITE);
-        mApi.tuiJian(TUIJIAN);
     }
 
     private Handler handler = new Handler() {

@@ -1,27 +1,26 @@
 package com.android.liyun.ui.account;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ExpandableListView;
 
 import com.android.liyun.R;
-import com.android.liyun.adapter.FavoritesListAdapter;
-import com.android.liyun.adapter.OrdersListAdapter;
+
+import com.android.liyun.adapter.CollocationListAdapter;
 import com.android.liyun.base.BaseFragment;
-import com.android.liyun.bean.BaseBen;
-import com.android.liyun.bean.FavoritesListBean;
 import com.android.liyun.bean.OrdersGoodsBean;
 import com.android.liyun.http.Api;
 import com.android.liyun.http.ConstValues;
-import com.android.liyun.http.RequestWhatI;
 import com.android.liyun.utils.SPUtil;
 import com.android.liyun.utils.UIUtils;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
@@ -29,8 +28,9 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
-import static com.android.liyun.http.RequestWhatI.FAVORITEGOODLIST;
 import static com.android.liyun.http.RequestWhatI.GETORDERLIST;
 import static com.android.liyun.http.RequestWhatI.GETORDERLIST_MORE;
 
@@ -42,20 +42,16 @@ public class OrdersGoodsFrag extends BaseFragment implements OnRefreshListener, 
 
 
     @BindView(R.id.swipe_target)
-    RecyclerView mRecyclerView;
+    ExpandableListView listView;
     @BindView(R.id.swipeToLoadLayout)
     SwipeToLoadLayout swipeToLoadLayout;
-    int pageNo = 1;
     private String uid;
     private String token;
-    private OrdersListAdapter ordersListAdapter;
-    private OrdersGoodsBean goodsListBean;
-    private String uid1;
-    private String token1;
+    int pageNo = 1;
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fra_order_list;
+        return R.layout.fra_order_list_;
     }
 
     @Override
@@ -70,21 +66,24 @@ public class OrdersGoodsFrag extends BaseFragment implements OnRefreshListener, 
         token = SPUtil.getString(UIUtils.getContext(), ConstValues.TOKEN, "");
         mApi.getOrderList(GETORDERLIST, uid, token, "1");
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(UIUtils.getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    if (!ViewCompat.canScrollVertically(recyclerView, 1)) {
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                    if (view.getLastVisiblePosition() == view.getCount() - 1 && !ViewCompat.canScrollVertically(view, 1)) {
                         swipeToLoadLayout.setLoadingMore(true);
                     }
                 }
             }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            }
         });
         swipeToLoadLayout.setOnRefreshListener(this);
         swipeToLoadLayout.setOnLoadMoreListener(this);
-        mRecyclerView.setBackgroundColor(Color.TRANSPARENT);
+        listView.setBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override
@@ -113,24 +112,33 @@ public class OrdersGoodsFrag extends BaseFragment implements OnRefreshListener, 
             if (msg.arg1 != -1) {
                 switch (msg.what) {
                     case GETORDERLIST:
-                        goodsListBean = mGson.fromJson(msg.obj.toString(), OrdersGoodsBean.class);
+
+                        String s = msg.obj.toString();
+                        OrdersGoodsBean goodsListBean = mGson.fromJson(msg.obj.toString(), OrdersGoodsBean.class);
                         if (null != goodsListBean) {
-                            ordersListAdapter = new OrdersListAdapter();
-                            mRecyclerView.setAdapter(ordersListAdapter);
-                            ordersListAdapter.addDatas(goodsListBean.getOrders());
+                            CollocationListAdapter collocationListAdapter = new CollocationListAdapter(getActivity(), listView, goodsListBean.getOrders());
+                            listView.setAdapter(collocationListAdapter);
+                            listView.expandGroup(0);//默认展开第一个
+                            if (null != collocationListAdapter && null != listView) {
+                                for (int i = 0; i < collocationListAdapter.getGroupCount(); i++) {
+                                    listView.expandGroup(i);
+                                }
+                            }
+//                            ordersListAdapter = new OrdersListAdapter();
+//                            mRecyclerView.setAdapter(ordersListAdapter);
+//                            ordersListAdapter.addDatas(goodsListBean.getOrders());
                         }
 
                         break;
                     case GETORDERLIST_MORE:
                         goodsListBean = mGson.fromJson(msg.obj.toString(), OrdersGoodsBean.class);
                         if (null != goodsListBean) {
-                            ordersListAdapter.addDatas(goodsListBean.getOrders());
-                            ordersListAdapter.notifyDataSetChanged();
+//                            ordersListAdapter.addDatas(goodsListBean.getOrders());
+//                            ordersListAdapter.notifyDataSetChanged();
                         }
                         break;
                 }
             }
         }
     };
-
 }

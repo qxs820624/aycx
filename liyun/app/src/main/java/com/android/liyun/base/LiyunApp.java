@@ -21,6 +21,8 @@ import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
+import com.vondear.rxtools.RxTool;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -117,6 +119,22 @@ public class LiyunApp extends Application {
         mainTid = android.os.Process.myTid();
         handler = new Handler();
         bindService(new Intent(mContext, BleService.class), mServiceConnection, BIND_AUTO_CREATE);
+        initTest();
+        RxTool.init(this);
+    }
+
+    private void initTest() {
+        com.zhy.http.okhttp.https.HttpsUtils.SSLParams sslParams = com.zhy.http.okhttp.https.HttpsUtils.getSslSocketFactory(null, null, null);
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+//                .addInterceptor(new LoggerInterceptor("TAG"))
+                .connectTimeout(10000L, TimeUnit.MILLISECONDS)
+                .readTimeout(10000L, TimeUnit.MILLISECONDS)
+                .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+                //其他配置
+                .build();
+
+        OkHttpUtils.initClient(okHttpClient);
+
     }
 
     public static LiyunApp instance() {

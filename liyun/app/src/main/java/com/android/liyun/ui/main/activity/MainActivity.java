@@ -29,9 +29,11 @@ import android.widget.Toast;
 
 import com.android.liyun.Constant;
 import com.android.liyun.R;
+import com.android.liyun.base.AppManager;
 import com.android.liyun.base.BaseActivity;
 import com.android.liyun.base.ConnectStatusManager;
 import com.android.liyun.base.LiyunApp;
+import com.android.liyun.http.ConstValues;
 import com.android.liyun.listener.BleScanCallback;
 import com.android.liyun.service.BleService;
 import com.android.liyun.ui.goods.GoodsListAct;
@@ -48,11 +50,17 @@ import com.android.liyun.utils.TimeStampUtil;
 import com.android.liyun.utils.ToastUtils;
 import com.android.liyun.widget.NoSlidingViewPaper;
 import com.liyun.blelibrary.BluetoothLeDevice;
+import com.vondear.rxtools.interfaces.OnRequestListener;
+import com.vondear.rxtools.module.wechat.pay.WechatModel;
+import com.vondear.rxtools.module.wechat.pay.WechatPayTools;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import io.realm.Realm;
+
+import static com.android.liyun.http.ConstValues.WX_PARTNER_ID;
+import static com.android.liyun.http.ConstValues.WX_PRIVATE_KEY;
 
 
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener, ConnectStatusManager.StatusChangeCallback {
@@ -66,7 +74,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private static final int ADD_DEVICE_REQUEST = 1005;
     private long lastTime = 0;
     private boolean isConnecting = false;
-    private boolean isScanning   = false;
+    private boolean isScanning = false;
     @BindView(R.id.container)
     RelativeLayout relativeLayout;
     public BottomNavigationView navigation;
@@ -76,6 +84,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private BleService mSennoSmartBleService;
     private Realm mRealm;
     private BroadcastReceiver receiver;
+    private long mExitTime;
 
     @Override
     public int getLayoutId() {
@@ -129,11 +138,12 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             }
         }, 1000);
     }
+
     /**
      * 扫描设备前进行判断是否已经绑定设备
      * 若没有绑定则弹窗指引用户前去绑定设备
      */
-    public  void scanDevice() {
+    public void scanDevice() {
         Log.e("TAG", "执行scan");
         if (hadBindDevice()) {
             if (mSennoSmartBleService != null) {
@@ -145,23 +155,25 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            startActivityForResult(ScanActivity.class,ADD_DEVICE_REQUEST);
+                            startActivityForResult(ScanActivity.class, ADD_DEVICE_REQUEST);
                         }
                     })
                     .setNegativeButton(android.R.string.cancel, null)
                     .show();
         }
     }
+
     /**
      * 检查是否已经绑定设备
      *
      * @return
      */
     private boolean hadBindDevice() {
-        String name         = SharedPreferencesUtil.loadDeviceParams(MainActivity.this, SharedPreferencesUtil.KEY_DEVICE_NAME);
+        String name = SharedPreferencesUtil.loadDeviceParams(MainActivity.this, SharedPreferencesUtil.KEY_DEVICE_NAME);
         String serialNumber = SharedPreferencesUtil.loadDeviceParams(MainActivity.this, SharedPreferencesUtil.KEY_DEVICE_SERIAL_NUMBER);
         return name != null && serialNumber != null;
     }
+
     protected void setStatusBar() {
         StatusBarUtil.setTranslucentForImageViewInFragment(MainActivity.this, null);
     }
@@ -173,7 +185,26 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    startActivity(GoodsListAct.class);
+                    WechatPayTools.wechatPayUnifyOrder(getApplicationContext(),
+                            ConstValues.APP_ID_WX, //微信分配的APP_ID
+                            WX_PARTNER_ID, //微信分配的 PARTNER_ID (商户ID)
+                            WX_PRIVATE_KEY, //微信分配的 PRIVATE_KEY (私钥)
+                            new WechatModel("1", //订单ID (唯一)
+                                    "0.01", //价格
+                                    "车载设备", //商品名称
+                                    "很好用，很方便"),
+
+                            new OnRequestListener() {
+                                @Override
+                                public void onSuccess(String s) {
+
+                                }
+
+                                @Override
+                                public void onError(String s) {
+                                    System.out.println(s);
+                                }
+                            });
                     mViewPager.setCurrentItem(0, false);
                     return true;
                 case R.id.navigation_managemoney:
@@ -205,6 +236,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         mLiYunApp = LiyunApp.instance();
         mSennoSmartBleService = mLiYunApp.getSennoSmartBleService();
     }
+
     @Override
     protected void onPause() {
         if (mSennoSmartBleService != null) {
@@ -214,6 +246,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
         super.onPause();
     }
+
     @Override
     protected void onDestroy() {
         if (mSennoSmartBleService != null) {
@@ -293,22 +326,18 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             isScanning = false;
         }
     };
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //按两次返回退出应用程序
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if ((System.currentTimeMillis() - lastTime) > EXIT_APP_DELAY) {
-                Snackbar.make(relativeLayout, getString(R.string.press_twice_exit), Snackbar.LENGTH_SHORT).setAction(R.string.exit_directly, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        MainActivity.super.onBackPressed();
-                    }
-                }).show();
-                lastTime = System.currentTimeMillis();
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                ToastUtils.showToast(R.string.app_exit);
+                mExitTime = System.currentTimeMillis();
             } else {
-                moveTaskToBack(true);
+                AppManager.getAppManager().AppExit(this, true);
             }
             return true;
-
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -347,6 +376,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     public void changeStatus(boolean isConnected) {
 
     }
+
     /**
      * 收到连接超时的广播
      */
@@ -359,6 +389,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
         Toast.makeText(this, "连接超时", Toast.LENGTH_LONG).show();
     }
+
     protected void onReceiverDiscoveredService() {
         ConnectStatusManager.changeConnectionStatus(true);
         Constant.START_CONNECT_TIME = TimeStampUtil.unixTimeStamp2Datems(String.valueOf(System.currentTimeMillis()), "yyyy-MM-dd HH:mm:ss");
@@ -381,14 +412,16 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             }
         }, 1000);
     }
+
     private void registerBroadrecevicer() {
-        receiver = new  IntenterBoradCastReceiver();
+        receiver = new IntenterBoradCastReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothLeDevice.ACTION_CONNECT_TIMEOUT);
         filter.addAction(BluetoothLeDevice.ACTION_DISCONNECTED);
         filter.addAction(BluetoothLeDevice.ACTION_SERVICES_DISCOVERED);
         registerReceiver(receiver, filter);
     }
+
     public class IntenterBoradCastReceiver extends BroadcastReceiver {
 
         @Override
@@ -398,7 +431,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 onReceiverConnectTimeout();
             } else if (action.equals(BluetoothLeDevice.ACTION_SERVICES_DISCOVERED)) {
                 onReceiverDiscoveredService();
-            } else if(action.equals(BluetoothLeDevice.ACTION_DISCONNECTED)){
+            } else if (action.equals(BluetoothLeDevice.ACTION_DISCONNECTED)) {
                 ConnectStatusManager.changeConnectionStatus(false);
                 ToastUtils.showToast("蓝牙断开连接");
             }

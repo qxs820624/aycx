@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.android.liyun.R;
 import com.android.liyun.bean.CommendBean;
+import com.android.liyun.inter.OnItemClickListener;
 import com.android.liyun.utils.UIUtils;
 import com.bumptech.glide.Glide;
 
@@ -35,11 +36,22 @@ public class InsVouAdapter extends RecyclerView.Adapter<InsVouAdapter.NormalText
     }
 
     @Override
-    public void onBindViewHolder(NormalTextViewHolder holder, int position) {
+    public void onBindViewHolder(final NormalTextViewHolder holder, int position) {
         holder.txtName.setText(twoBeans.get(position).getName());
         holder.price.setText(twoBeans.get(position).getPay_points());
         Glide.with(UIUtils.getContext()).load(twoBeans.get(position).getImage()).into(holder.ivGoods
         );
+
+        View itemView = ((android.support.v7.widget.CardView) holder.itemView).getChildAt(0);
+        if (mOnItemClickListener != null) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = holder.getLayoutPosition();
+                    mOnItemClickListener.onItemClick(holder.itemView, position);
+                }
+            });
+        }
     }
 
     @Override
@@ -59,5 +71,11 @@ public class InsVouAdapter extends RecyclerView.Adapter<InsVouAdapter.NormalText
             txtName = (TextView) view.findViewById(R.id.txt_name);
             price = (TextView) view.findViewById(R.id.txt_pay_points);
         }
+    }
+
+    private OnItemClickListener mOnItemClickListener;//声明接口
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
     }
 }

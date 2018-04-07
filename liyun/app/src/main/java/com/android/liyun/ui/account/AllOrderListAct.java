@@ -4,8 +4,6 @@ import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -13,7 +11,6 @@ import android.widget.TextView;
 import com.android.liyun.R;
 import com.android.liyun.adapter.CommonAdapter;
 import com.android.liyun.base.BaseActivity;
-import com.android.liyun.ui.main.fragment.HomeFrag;
 import com.android.liyun.ui.main.fragment.MyFrag;
 import com.android.liyun.utils.UIUtils;
 
@@ -21,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
 
 public class AllOrderListAct extends BaseActivity {
 

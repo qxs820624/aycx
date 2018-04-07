@@ -9,10 +9,18 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //设置支持的SO库架构
             abiFilters 'armeabi', 'x86', 'armeabi-v7a'
+        }
+    }
+
+    sourceSets{
+        main{
+            jniLibs.srcDir 'libs'
+            //说明so的路径为该libs路径，关联所有地图SDK的so文件
         }
     }
 
@@ -30,7 +38,6 @@ android {
             maven { url "https://jitpack.io" }//必须添加这行
         }
     }
-
     configurations.all {
         resolutionStrategy.eachDependency { details ->
             def requested = details.requested
@@ -46,7 +53,7 @@ android {
 
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:design:26.0.1'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -66,9 +73,9 @@ dependencies {
     compile 'com.lzy.net:okrx2:2.0.2'
     compile 'com.lzy.net:okserver:2.0.5'
     /**
-     *  微信
+     *    微信
      */
-    compile project(path: ':blelibrary')
+    //    compile project(path: ':blelibrary')
     implementation files('libs/Msc.jar')
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.youth.banner:banner:1.4.9'
@@ -77,8 +84,20 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:cardview-v7:24.2.0'
     compile 'com.github.addappcn:android-pickers:1.0.3'
-
     compile 'com.alibaba:fastjson:1.1.56.android'
     compile 'com.github.Aspsine:SwipeToLoadLayout:1.0.4'
     implementation 'com.qmuiteam:qmui:1.0.6'
+    compile files('libs/BaiduLBS_Android.jar')
+    //compile 'com.github.vondear:RxTools:v1.7.7.3'//请替换成上方 JitPack 最新的版本号
+    //compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    //    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    compile 'com.github.vondear:RxTools:v1.7.7.7'
+    //请替换成上方 JitPack 最新的版本号
+    implementation 'com.zhy:okhttputils:2.6.2'
+    implementation files('libs/wechat-sdk-android-with-mta-1.3.4.jar')
+    implementation files('libs/mta-sdk-1.6.2.jar')
+    implementation files('libs/open_sdk_r5793_lite.jar')
+    implementation 'com.vise.xiaoyaoyou:viselog:1.0.0'
+    implementation project(':blelibrary')
+    compile 'com.android.support:multidex:1.0.1'
 }

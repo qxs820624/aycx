@@ -156,9 +156,35 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             InsVouAdapter adapter = new InsVouAdapter(context, twoBeans);
             insVouHolder.recyclerView.setLayoutManager(new GridLayoutManager(UIUtils.getContext(), 3));
             insVouHolder.recyclerView.setAdapter(adapter);
+
+            adapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    Toast.makeText(UIUtils.getContext(), oneBeans.get(position).getName(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.putExtra("goods_id", oneBeans.get(position).getGoods_id());
+                    intent.setClass(UIUtils.getContext(), ComDetailsAct.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    UIUtils.getContext().startActivity(intent);
+                }
+            });
         } else {//正常布局
             CarServiceHolder carServiceHolder = (CarServiceHolder) holder;
             CarServiceAdapter adapter = new CarServiceAdapter(context, threeBeans);
+            adapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+
+                    Toast.makeText(UIUtils.getContext(), oneBeans.get(position).getName(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.putExtra("goods_id", oneBeans.get(position).getGoods_id());
+                    intent.setClass(UIUtils.getContext(), ComDetailsAct.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    UIUtils.getContext().startActivity(intent);
+
+
+                }
+            });
             carServiceHolder.recyclerView.setLayoutManager(new GridLayoutManager(UIUtils.getContext(), 3));
             carServiceHolder.recyclerView.setAdapter(adapter);
         }
@@ -262,6 +288,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public InsVouHolder(View itemView) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.recycleView);
+            RelativeLayout relativeLayout = (RelativeLayout) itemView.findViewById(R.id.rl_guess_more);
+            relativeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.putExtra("categoryid", "2");
+                    intent.setClass(UIUtils.getContext(), GoodsListAct.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    UIUtils.getContext().startActivity(intent);
+                }
+            });
         }
     }
 
@@ -274,6 +311,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public CarServiceHolder(View itemView) {
             super(itemView);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.recycleView);
+            RelativeLayout relativeLayout = (RelativeLayout) itemView.findViewById(R.id.rl_guess_more);
+            relativeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.putExtra("categoryid", "3");
+                    intent.setClass(UIUtils.getContext(), GoodsListAct.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    UIUtils.getContext().startActivity(intent);
+                }
+            });
         }
     }
 

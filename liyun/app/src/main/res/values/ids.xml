@@ -23,4 +23,9 @@
     <item name="txt_name" type="id" />
     <item name="txt_pay_points" type="id" />
     <item name="txt_settlement" type="id" />
+    <item name="txt_gold" type="id">txt_gold</item>
+    <item name="txt_masonry" type="id">txt_masonry</item>
+    <item name="txt_silver" type="id">txt_silver</item>
+    <item name="txt_jifen" type="id">txt_jifen</item>
+    <item name="txt_nickname" type="id">txt_nickname</item>
 </resources>
