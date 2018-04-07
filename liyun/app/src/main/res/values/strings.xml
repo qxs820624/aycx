@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">安益出行</string>
-    <string name="title_home">状态</string>
-    <string name="title_notifications">游戏</string>
+    <string name="title_home">抢币</string>
+    <string name="title_notifications">出行</string>
     <string name="press_twice_exit">再次按返回键退出</string>
     <string name="exit_directly">直接退出</string>
     <string name="safe_exit">安全退出</string>
@@ -80,5 +80,6 @@
     <string name="original_y" />
     <string name="isUp" />
     <string name="acc_info">账号信息</string>
+    <string name="app_exit">再按一次退出程序</string>
 
 </resources>

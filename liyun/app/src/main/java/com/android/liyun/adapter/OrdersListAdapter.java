@@ -1,3 +1,4 @@
+/*
 package com.android.liyun.adapter;
 
 import android.support.v7.widget.RecyclerView;
@@ -20,9 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by sunwubin on 2017/10/30.
- */
+
 
 public class OrdersListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -147,3 +146,4 @@ public class OrdersListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         void onItemClick(int position, ArrayList<GoodsListBean.GoodsBean> mDatas);
     }
 }
+*/

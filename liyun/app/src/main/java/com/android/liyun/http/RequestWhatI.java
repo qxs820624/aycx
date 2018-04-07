@@ -28,4 +28,5 @@ public interface RequestWhatI {
     int FAVORITEGOODLIST = 20;//商品列表
     int GETORDERLIST = 21;//获取订单列表
     int GETORDERLIST_MORE = 22;//获取更多订单列表
+    int USERCENTER = 23;//用户个人中心
 }

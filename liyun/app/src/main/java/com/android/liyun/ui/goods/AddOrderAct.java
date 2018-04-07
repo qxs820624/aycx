@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,6 +33,9 @@ import static com.android.liyun.http.RequestWhatI.ADD_ORDER;
 import static com.android.liyun.http.RequestWhatI.GET_DEFAULT_ADD;
 import static com.android.liyun.http.RequestWhatI.SENDCODE;
 
+/**
+ * 提交订单
+ */
 public class AddOrderAct extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -80,6 +84,17 @@ public class AddOrderAct extends BaseActivity {
         setSupportActionBar(toolbar);
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public void initView() {
         mApi = new Api(handler, this);
@@ -105,7 +120,7 @@ public class AddOrderAct extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        toolbar.setTitle("下单");
+        toolbar.setTitle("提交订单");
         toolbar.setTitleTextColor(Color.WHITE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mApi.getDefaultAdd(RequestWhatI.GET_DEFAULT_ADD, uid, token);

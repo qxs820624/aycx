@@ -153,7 +153,6 @@ public class ComDetailsAct extends BaseActivity {
                 mApi.addCart(RequestWhatI.ADDCART, uid, token, goods_id, "1", "fads");
                 break;
             case R.id.txt_exchange:
-
                 if (goodsDetailBean != null) {
                     Intent intent = new Intent();
                     intent.putExtra("goodsDetailBean", goodsDetailBean);

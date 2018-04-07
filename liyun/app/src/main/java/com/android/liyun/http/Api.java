@@ -271,6 +271,7 @@ public class Api {
 
     /**
      * 添加地址
+     *
      * @param what
      * @param addBean
      */
@@ -422,7 +423,6 @@ public class Api {
      * @param token
      * @param addressid
      * @param goodsid
-     * @param common
      */
     public void addOrder(int what, String uid, String token, String addressid, String goodsid, String comment) {
         String url = ConstValues.url;
@@ -519,16 +519,16 @@ public class Api {
      * @param what
      * @param uid
      * @param token
-     * @param page
+     * @param curpage
      */
-    public void getOrderList(int what, String uid, String token, String page) {
+    public void getOrderList(int what, String uid, String token, String curpage) {
         String url = ConstValues.url;
         TreeMap<String, String> paramsTreeMap = new TreeMap<>();
         paramsTreeMap.put("module", "Order");
         paramsTreeMap.put("action", "getlist");
         paramsTreeMap.put("uid", uid);
         paramsTreeMap.put("token", token);
-        paramsTreeMap.put("page", page);
+        paramsTreeMap.put("curpage", curpage);
         mHttpRequest.postDataString(url, what, "getOrderList", paramsTreeMap, false);
         mHttpTag.put("getOrderList", 0);
     }
@@ -545,6 +545,24 @@ public class Api {
         paramsTreeMap.put("action", "jifenpaiming");
         mHttpRequest.postDataString(url, what, "ranking", paramsTreeMap, false);
         mHttpTag.put("ranking", 0);
+    }
+
+    /**
+     * 用户中心
+     *
+     * @param what
+     * @param userId
+     * @param token
+     */
+    public void userCenter(int what, String userId, String token) {
+        String url = ConstValues.url;
+        TreeMap<String, String> paramsTreeMap = new TreeMap<>();
+        paramsTreeMap.put("module", "User");
+        paramsTreeMap.put("action", "load");
+        paramsTreeMap.put("uid", userId);
+        paramsTreeMap.put("token", token);
+        mHttpRequest.postDataString(url, what, "userCenter", paramsTreeMap, false);
+        mHttpTag.put("userCenter", 0);
     }
 
 }

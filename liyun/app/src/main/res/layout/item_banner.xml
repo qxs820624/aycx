@@ -9,11 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="175dp"
         app:delay_time="3000"
-        app:scroll_time="1500"
-        app:indicator_margin="5dp"
-        app:indicator_height="6dp"
-        app:indicator_width="6dp"
         app:indicator_drawable_selected="@color/colorPrimary"
         app:indicator_drawable_unselected="@color/colorAccent"
-         />
+        app:indicator_height="6dp"
+        app:indicator_margin="5dp"
+        app:indicator_width="6dp"
+        app:scroll_time="1500" />
 </LinearLayout>
